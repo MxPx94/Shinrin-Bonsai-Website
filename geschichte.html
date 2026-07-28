@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geschichte — Shinrin Bonsai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F9F9F9;
+    --bg-paper: #FFFFFF;
+    --ink: #241E1C;
+    --ink-soft: #2C302E;
+    --moss: #60725A;
+    --moss-dark: #4C5C47;
+    --terracotta: #D1A68A;
+    --grey: #A0A0A0;
+    --line: rgba(36,30,28,0.10);
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+
+    --container: 1180px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+    --space-5: 64px;
+    --space-6: 96px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width: 100%; display: block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; margin: 0; padding: 0; }
+  button{ font-family: inherit; cursor: pointer; }
+
+  :focus-visible{
+    outline: 2px solid var(--moss);
+    outline-offset: 3px;
+  }
+
+  .container{
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249,249,249,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 84px;
+  }
+  .logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .logo-mark{ width: 26px; height: 26px; flex-shrink: 0; }
+  .logo-mark path{ stroke: var(--moss); }
+
+  .main-nav{ display: flex; align-items: center; gap: var(--space-5); }
+  .main-nav ul{ display: flex; gap: var(--space-4); }
+  .main-nav a{
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .main-nav a.active{ color: var(--ink); }
+  .main-nav a::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .main-nav a:hover{ color: var(--ink); }
+  .main-nav a:hover::after{ transform: scaleX(1); transform-origin: left; }
+  .main-nav a.active::after{ transform: scaleX(1); background: var(--moss); }
+
+  .header-actions{ display: flex; align-items: center; gap: var(--space-3); }
+  .cart-button{
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .cart-button:hover{ border-color: var(--moss); background: var(--bg-paper); }
+  .cart-button svg{ width: 18px; height: 18px; stroke: var(--ink); }
+  .cart-count{
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .burger{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px; height: 40px;
+    background: none; border: none; padding: 0;
+  }
+  .burger span{
+    display: block;
+    height: 1.5px;
+    width: 22px;
+    background: var(--ink);
+    margin: 0 auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-nav{
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-3);
+    transform: translateY(-100%);
+    transition: transform 0.35s ease;
+  }
+  .mobile-nav.open{ transform: translateY(0); }
+  .mobile-nav-top{
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: var(--space-5);
+  }
+  .mobile-nav-close{
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-close svg{ width: 16px; height: 16px; }
+  .mobile-nav ul{ display: flex; flex-direction: column; gap: var(--space-3); }
+  .mobile-nav a{
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .mobile-nav a.active{ color: var(--moss-dark); }
+
+  /* ---------- Section utilities ---------- */
+  .section{ padding: var(--space-6) 0; }
+  .section-head{ max-width: 640px; margin: 0 0 var(--space-5); }
+  .section-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+  .section-eyebrow::before{ content: ""; width: 28px; height: 1px; background: var(--terracotta); }
+  .section-head h1, .section-head h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+  }
+  .section-head h1{ font-size: clamp(2.2rem, 3.6vw, 3.1rem); }
+  .section-head h2{ font-size: clamp(1.8rem, 2.6vw, 2.5rem); }
+  .section-head p{ color: var(--ink-soft); font-size: 1.02rem; margin: 0; }
+
+  .divider{ width: 100%; height: 1px; background: var(--line); border: none; margin: 0; }
+
+  .link-arrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--terracotta);
+    padding-bottom: 3px;
+    transition: gap 0.25s ease, color 0.25s ease;
+  }
+  .link-arrow svg{ width: 15px; height: 15px; transition: transform 0.25s ease; }
+  .link-arrow:hover{ color: var(--moss-dark); }
+  .link-arrow:hover svg{ transform: translateX(3px); }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary{ background: var(--moss); color: #fff; box-shadow: 0 1px 2px rgba(36,30,28,0.08); }
+  .btn-primary:hover{ background: var(--moss-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(76,92,71,0.28); }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink); }
+  .btn svg{ width: 16px; height: 16px; }
+
+  /* Shared fallback icon pattern */
+  .img-fallback{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .img-fallback::before{
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+  }
+
+  /* ---------- Page hero ---------- */
+  .page-hero{
+    padding: var(--space-5) 0 var(--space-6);
+  }
+  .page-hero-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .page-hero-copy p.lede{
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: var(--space-3) 0 0;
+  }
+  .portrait-frame{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
+  }
+  .portrait-frame::before{
+    width: 56px; height: 56px;
+  }
+  .portrait-frame-note{
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+    z-index: 2;
+    color: rgba(249,249,249,0.85);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    max-width: 75%;
+  }
+
+  /* ---------- Persönliche Geschichte ---------- */
+  .story{
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .story-grid{
+    display: grid;
+    grid-template-columns: 0.62fr 1fr;
+    gap: var(--space-6);
+  }
+  .story-marker{
+    position: relative;
+  }
+  .story-marker-line{
+    width: 1px;
+    height: 100%;
+    background: var(--line);
+    position: absolute;
+    left: 21px;
+    top: 50px;
+  }
+  .story-year{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(96,114,90,0.10);
+    color: var(--moss-dark);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .story-copy p{
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 var(--space-3);
+  }
+  .story-copy p:last-child{ margin-bottom: 0; }
+  .story-copy p.story-quote{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--ink);
+    line-height: 1.5;
+    max-width: 50ch;
+    margin: var(--space-4) 0;
+  }
+
+  /* ---------- Philosophie / Werte ---------- */
+  .values{ background: var(--bg); }
+  .values-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .value-card{
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .value-icon{
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(209,166,138,0.16);
+  }
+  .value-icon svg{ width: 19px; height: 19px; stroke: var(--terracotta); }
+  .value-card:nth-child(2) .value-icon,
+  .value-card:nth-child(odd) .value-icon{
+    background: rgba(96,114,90,0.10);
+  }
+  .value-card:nth-child(2) .value-icon svg,
+  .value-card:nth-child(odd) .value-icon svg{
+    stroke: var(--moss-dark);
+  }
+  .value-card h3{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--ink);
+  }
+  .value-card p{
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- Werkstatt / Garten Einblicke ---------- */
+  .workshop{ background: var(--bg-paper); }
+  .workshop-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+  .workshop-media{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--moss);
+  }
+  .workshop-media img{ width: 100%; height: 100%; object-fit: cover; }
+  .workshop-media.img-fallback{ background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .workshop-media.img-fallback::before{ width: 36px; height: 36px; }
+  .workshop-caption{
+    position: absolute;
+    left: 12px; bottom: 12px;
+    color: rgba(249,249,249,0.9);
+    font-size: 0.74rem;
+    z-index: 2;
+  }
+
+  /* ---------- Persönliche Note ---------- */
+  .note{ background: var(--bg); }
+  .note-card{
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--ink);
+    border-radius: 20px;
+    padding: var(--space-5);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .note-card::before{
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(209,166,138,0.12);
+  }
+  .note-mark{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--terracotta);
+    position: relative;
+    z-index: 1;
+  }
+  .note-card p{
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    line-height: 1.5;
+    color: var(--bg);
+    max-width: 48ch;
+    margin: var(--space-2) auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .note-attr{
+    margin-top: var(--space-3);
+    font-size: 0.82rem;
+    color: rgba(249,249,249,0.5);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- CTA strip ---------- */
+  .cta-strip{
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+  }
+  .cta-strip-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .cta-strip h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    margin: 0;
+    color: var(--ink);
+    max-width: 36ch;
+  }
+  .cta-strip-actions{ display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background: var(--ink); color: var(--bg); padding: var(--space-5) 0 var(--space-3); }
+  .footer-top{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+  .footer-brand .logo{ color: var(--bg); }
+  .footer-brand .logo-mark path{ stroke: var(--terracotta); }
+  .footer-claim{ font-size: 0.88rem; color: rgba(249,249,249,0.55); margin: var(--space-2) 0 var(--space-3); max-width: 30ch; }
+  .footer-social{ display: flex; gap: var(--space-2); }
+  .footer-social a{
+    width: 34px; height: 34px;
+    border: 1px solid rgba(249,249,249,0.18);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .footer-social a:hover{ border-color: var(--terracotta); background: rgba(209,166,138,0.08); }
+  .footer-social svg{ width: 15px; height: 15px; stroke: var(--bg); }
+  .footer-col h4{
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(249,249,249,0.45);
+    margin: 0 0 var(--space-2);
+    font-weight: 600;
+  }
+  .footer-col ul{ display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a{ font-size: 0.92rem; color: rgba(249,249,249,0.78); transition: color 0.2s ease; }
+  .footer-col a:hover{ color: var(--terracotta); }
+  .footer-bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-3);
+    font-size: 0.8rem;
+    color: rgba(249,249,249,0.45);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .footer-bottom a{ color: rgba(249,249,249,0.6); }
+  .footer-bottom a:hover{ color: var(--terracotta); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .page-hero-grid{ grid-template-columns: 1fr; gap: var(--space-4); }
+    .portrait-frame{ max-width: 420px; }
+    .story-grid{ grid-template-columns: 1fr; gap: var(--space-3); }
+    .story-marker{ display: flex; align-items: center; gap: var(--space-2); }
+    .story-marker-line{ display: none; }
+    .values-grid{ grid-template-columns: 1fr; }
+    .workshop-grid{ grid-template-columns: 1fr 1fr; }
+    .footer-top{ grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); }
+    .footer-brand{ grid-column: 1 / -1; }
+  }
+  @media (max-width: 760px){
+    .main-nav ul{ display: none; }
+    .burger{ display: flex; }
+    .container{ padding: 0 var(--space-3); }
+  }
+  @media (max-width: 600px){
+    .section{ padding: var(--space-5) 0; }
+    .workshop-grid{ grid-template-columns: 1fr; }
+    .note-card{ padding: var(--space-4) var(--space-3); }
+    .cta-strip-inner{ flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Shinrin Bonsai, Startseite">
+      <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+      Shinrin Bonsai
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="geschichte.html" class="active">Geschichte</a></li>
+        <li><a href="produkte.html">Produkte</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="17" cy="21" r="1"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </button>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation">
+  <div class="mobile-nav-top">
+    <a href="index.html" class="logo">Shinrin Bonsai</a>
+    <button class="mobile-nav-close" aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="index.html">Start</a></li>
+    <li><a href="geschichte.html" class="active">Geschichte</a></li>
+    <li><a href="produkte.html">Produkte</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ============ PAGE HERO / PORTRÄT ============ -->
+  <section class="section page-hero" id="geschichte">
+    <div class="container page-hero-grid">
+      <div class="page-hero-copy">
+        <span class="section-eyebrow">Die Geschichte dahinter</span>
+        <h1>Wer hinter den Bäumen steht</h1>
+        <p class="lede">
+          Diese Seite erzählt, wie aus einem stillen Interesse an Bonsai eine Leidenschaft wurde —
+          und warum jeder Baum hier mit Geduld statt Eile entsteht.
+        </p>
+      </div>
+
+      <div class="portrait-frame img-fallback" id="portrait-frame">
+        <span class="portrait-frame-note">Foto folgt — authentisches Porträt bei der Arbeit am Bonsai</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============ PERSÖNLICHE GESCHICHTE ============ -->
+  <section class="section story">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Der Anfang</span>
+        <h2>Wie alles begann</h2>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-marker">
+          <span class="story-year">①</span>
+          <div class="story-marker-line"></div>
+        </div>
+        <div class="story-copy">
+          <p>
+            Der erste Bonsai war eher Zufall als Plan — ein kleiner, unscheinbarer Baum, der mehr Aufmerksamkeit
+            brauchte, als zunächst erwartet. Aus dieser Aufmerksamkeit wurde mit der Zeit etwas Größeres:
+            die Entdeckung, dass in der Arbeit mit Bonsai eine besondere Ruhe liegt.
+          </p>
+          <p class="story-quote">
+            „Geduld ist kein Warten — sie ist tägliche, aufmerksame Pflege.“
+          </p>
+          <p>
+            Aus einem einzelnen Baum wurden mit den Jahren viele, aus Versuch und Irrtum wurde Erfahrung,
+            und aus einem stillen Hobby ein kleines Handwerk, das heute mit ebenso viel Sorgfalt betrieben wird
+            wie am ersten Tag — nur mit deutlich mehr Wissen über Wurzeln, Wuchsformen und Geduld.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHILOSOPHIE / WERTE ============ -->
+  <section class="section values">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Haltung</span>
+        <h2>Was diese Arbeit leitet</h2>
+        <p>Drei Grundsätze, die sich durch Anzucht, Pflege und Beratung ziehen.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <h3>Geduld statt Eile</h3>
+          <p>Ein Bonsai lässt sich nicht beschleunigen. Jede Wuchsform braucht ihre eigene Zeit — und genau das macht den Reiz aus.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v6c0 5 9 9 9 9s9-4 9-9V7l-9-5Z"/></svg>
+          </div>
+          <h3>Nachhaltige Pflege</h3>
+          <p>Substrat, Wasser und Standort werden bewusst gewählt — für Bäume, die über Jahrzehnte gut altern können.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 8-8 11Z"/></svg>
+          </div>
+          <h3>Ehrliches Handwerk</h3>
+          <p>Keine Verkaufsmasche, keine falschen Versprechen — nur ehrliche Beratung, auch wenn ein Baum mal nicht passt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WERKSTATT / GARTEN EINBLICKE ============ -->
+  <section class="section workshop">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Einblick</span>
+        <h2>Aus Garten und Werkstatt</h2>
+        <p>Ein paar Momentaufnahmen aus dem Entstehungsprozess — bis die echten Fotos folgen.</p>
+      </div>
+
+      <div class="workshop-grid">
+        <div class="workshop-media">
+          <img
+            src="assets/images/werkstatt-wurzelarbeit.jpg"
+            alt="Bonsai mit freiliegenden Wurzeln, Detailaufnahme aus der Pflege"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            onerror="this.closest('.workshop-media').classList.add('img-fallback'); this.remove();">
+          <span class="workshop-caption">Wurzelarbeit, Frühjahr</span>
+        </div>
+        <div class="workshop-media">
+          <img
+            src="assets/images/werkstatt-fenster.jpg"
+            alt="Bonsai in ruhigem Licht am Fenster der Werkstatt"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            onerror="this.closest('.workshop-media').classList.add('img-fallback'); this.remove();">
+          <span class="workshop-caption">Ruheplatz am Fenster</span>
+        </div>
+        <div class="workshop-media">
+          <img
+            src="assets/images/werkstatt-versand.jpg"
+            alt="Minimalistisch fotografierter Bonsai, fertig zur Auslieferung"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            onerror="this.closest('.workshop-media').classList.add('img-fallback'); this.remove();">
+          <span class="workshop-caption">Bereit für ein neues Zuhause</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSÖNLICHE NOTE ============ -->
+  <section class="section note">
+    <div class="container">
+      <div class="note-card">
+        <span class="note-mark">„</span>
+        <p>Der liebste Baum in der Sammlung ist fast immer der unscheinbarste — der, dem man die meisten Jahre Aufmerksamkeit gegeben hat.</p>
+        <span class="note-attr">Eine kleine, ehrliche Anekdote aus dem Alltag mit Bonsai</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA STRIP ============ -->
+  <section class="section cta-strip">
+    <div class="container cta-strip-inner">
+      <h2>Neugierig geworden? Die Bäume warten.</h2>
+      <div class="cta-strip-actions">
+        <a href="produkte.html" class="btn btn-primary">
+          Bäume entdecken
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="kontakt.html" class="btn btn-ghost">Frage stellen</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+          Shinrin Bonsai
+        </a>
+        <p class="footer-claim">Geduld, die wächst. Bonsai mit Herz gezogen.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="geschichte.html">Geschichte</a></li>
+          <li><a href="produkte.html">Produkte</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="index.html#vertrauen">Pflegehinweise</a></li>
+          <li><a href="#">Versand</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Shinrin Bonsai. Alle Rechte vorbehalten.</span>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeBtn = document.querySelector('.mobile-nav-close');
+
+  function openNav(){
+    mobileNav.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    mobileNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shinrin Bonsai — Geduld, die wächst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F9F9F9;
+    --bg-paper: #FFFFFF;
+    --ink: #241E1C;
+    --ink-soft: #2C302E;
+    --moss: #60725A;
+    --moss-dark: #4C5C47;
+    --terracotta: #D1A68A;
+    --grey: #A0A0A0;
+    --line: rgba(36,30,28,0.10);
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+
+    --container: 1180px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+    --space-5: 64px;
+    --space-6: 96px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width: 100%; display: block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; margin: 0; padding: 0; }
+  button{ font-family: inherit; cursor: pointer; }
+
+  :focus-visible{
+    outline: 2px solid var(--moss);
+    outline-offset: 3px;
+  }
+
+  .container{
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249,249,249,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 84px;
+  }
+
+  .logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .logo-mark{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .main-nav{
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .main-nav ul{
+    display: flex;
+    gap: var(--space-4);
+  }
+  .main-nav a{
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .main-nav a.active{ color: var(--ink); }
+  .main-nav a::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .main-nav a:hover{ color: var(--ink); }
+  .main-nav a:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .main-nav a.active::after{ transform: scaleX(1); background: var(--moss); }
+
+  .header-actions{
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .cart-button{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .cart-button:hover{
+    border-color: var(--moss);
+    background: var(--bg-paper);
+  }
+  .cart-button svg{ width: 18px; height: 18px; stroke: var(--ink); }
+  .cart-count{
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .burger{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .burger span{
+    display: block;
+    height: 1.5px;
+    width: 22px;
+    background: var(--ink);
+    margin: 0 auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner{
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4) var(--space-6);
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .hero-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+  .hero-eyebrow::before{
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--terracotta);
+  }
+
+  .hero-content h1{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-3);
+    color: var(--ink);
+  }
+  .hero-content h1 em{
+    font-style: italic;
+    font-weight: 400;
+    color: var(--moss-dark);
+  }
+
+  .hero-content p.lede{
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin: 0 0 var(--space-4);
+  }
+
+  .hero-actions{
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--moss);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(36,30,28,0.08);
+  }
+  .btn-primary:hover{
+    background: var(--moss-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(76,92,71,0.28);
+  }
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+  .btn-ghost:hover{
+    border-color: var(--ink);
+  }
+  .btn svg{ width: 16px; height: 16px; }
+
+  .hero-meta{
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--line);
+    max-width: 42ch;
+  }
+  .hero-meta-item{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-meta-item strong{
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .hero-meta-item span{
+    font-size: 0.78rem;
+    color: var(--grey);
+  }
+
+  .hero-visual{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--moss);
+  }
+  .hero-visual > img:not(.hero-seal){
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-visual.img-fallback{
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,0.10), transparent 45%),
+      linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual.img-fallback::before{
+    content: "";
+    width: 64px;
+    height: 64px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.55;
+  }
+  .hero-visual::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(36,30,28,0) 55%, rgba(36,30,28,0.32) 100%);
+  }
+  .hero-visual-caption{
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+    z-index: 2;
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    opacity: 0.92;
+  }
+
+  .hero-visual-tag{
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 2;
+    background: rgba(249,249,249,0.92);
+    backdrop-filter: blur(4px);
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-visual-tag::before{
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+
+  .hero-seal{
+    position: absolute;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    z-index: 2;
+    width: 92px !important;
+    height: auto !important;
+    border-radius: 7px;
+    box-shadow: 0 6px 18px rgba(36,30,28,0.35);
+    opacity: 0.96;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero-inner{
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-3);
+    }
+    .hero-visual{ order: -1; aspect-ratio: 16 / 11; }
+    .hero-meta{ max-width: none; }
+  }
+
+  @media (max-width: 760px){
+    .main-nav ul, .main-nav { gap: var(--space-3); }
+    .main-nav ul{ display: none; }
+    .burger{ display: flex; }
+    .container{ padding: 0 var(--space-3); }
+    .hero-content h1{ font-size: clamp(2rem, 7vw, 2.6rem); }
+    .hero-seal{ width: 64px !important; }
+  }
+
+  /* Mobile nav overlay */
+  .mobile-nav{
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-3);
+    transform: translateY(-100%);
+    transition: transform 0.35s ease;
+  }
+  .mobile-nav.open{ transform: translateY(0); }
+  .mobile-nav-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-5);
+  }
+  .mobile-nav-close{
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-close svg{ width: 16px; height: 16px; }
+  .mobile-nav ul{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .mobile-nav a{
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .mobile-nav a.active{ color: var(--moss-dark); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- Section utilities ---------- */
+  .section{
+    padding: var(--space-6) 0;
+  }
+  .section-head{
+    max-width: 640px;
+    margin: 0 0 var(--space-5);
+  }
+  .section-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+  .section-eyebrow::before{
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--terracotta);
+  }
+  .section-head h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+    line-height: 1.2;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    margin: 0;
+  }
+
+  .divider{
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    border: none;
+    margin: 0;
+  }
+
+  /* ---------- Kurzvorstellung ---------- */
+  .intro{
+    background: var(--bg-paper);
+  }
+  .intro-inner{
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .intro-portrait{
+    position: relative;
+    aspect-ratio: 3 / 3.6;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--moss);
+  }
+  .intro-portrait img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .intro-portrait.img-fallback{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--terracotta) 0%, #b98969 100%);
+  }
+  .intro-portrait.img-fallback::before{
+    content: "";
+    width: 56px;
+    height: 56px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+  }
+
+  .intro-content p.lede{
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0 0 var(--space-4);
+    max-width: 36ch;
+  }
+  .intro-content p.body-text{
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 0 var(--space-4);
+  }
+  .link-arrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--terracotta);
+    padding-bottom: 3px;
+    transition: gap 0.25s ease, color 0.25s ease;
+  }
+  .link-arrow svg{ width: 15px; height: 15px; transition: transform 0.25s ease; }
+  .link-arrow:hover{ color: var(--moss-dark); }
+  .link-arrow:hover svg{ transform: translateX(3px); }
+
+  /* ---------- Produkt-Teaser ---------- */
+  .products-teaser{
+    background: var(--bg);
+  }
+  .teaser-head-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-3);
+  }
+
+  .product-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+
+  .product-card{
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(36,30,28,0.08);
+    border-color: rgba(96,114,90,0.25);
+  }
+
+  .product-media{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--moss);
+    overflow: hidden;
+  }
+  .product-media img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-media img{
+    transform: scale(1.05);
+  }
+  .product-media.icon-tile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
+  }
+  .product-media.icon-tile.alt{
+    background: linear-gradient(160deg, var(--terracotta) 0%, #b98969 100%);
+  }
+  .product-media.icon-tile svg{
+    width: 44px;
+    height: 44px;
+    stroke: #F9F9F9;
+    opacity: 0.85;
+  }
+  .product-media.img-fallback{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-media.img-fallback::before{
+    content: "";
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+  }
+
+  .product-category{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(249,249,249,0.92);
+    backdrop-filter: blur(4px);
+    color: var(--ink);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    z-index: 2;
+  }
+
+  .product-info{
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .product-info h3{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--ink);
+  }
+  .product-info p{
+    font-size: 0.88rem;
+    color: var(--grey);
+    margin: 0 0 8px;
+    line-height: 1.5;
+  }
+  .product-info-footer{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .product-price{
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.98rem;
+  }
+  .product-price span{
+    color: var(--grey);
+    font-weight: 400;
+    font-size: 0.78rem;
+  }
+  .add-to-cart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .add-to-cart svg{ width: 15px; height: 15px; stroke: var(--ink); }
+  .add-to-cart:hover{
+    background: var(--moss);
+    border-color: var(--moss);
+    transform: scale(1.06);
+  }
+  .add-to-cart:hover svg{ stroke: #fff; }
+
+  @media (max-width: 980px){
+    .intro-inner{ grid-template-columns: 1fr; gap: var(--space-4); }
+    .intro-portrait{ aspect-ratio: 16/10; max-width: 420px; }
+    .product-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px){
+    .section{ padding: var(--space-5) 0; }
+    .teaser-head-row{ flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+    .product-grid{ grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+    .intro-content p.lede{ font-size: 1.25rem; }
+  }
+
+  /* ---------- Vertrauenselement ---------- */
+  .trust{
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .trust-item{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .trust-icon{
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(96,114,90,0.10);
+    margin-bottom: 4px;
+  }
+  .trust-icon svg{
+    width: 20px;
+    height: 20px;
+    stroke: var(--moss-dark);
+  }
+  .trust-item h3{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--ink);
+  }
+  .trust-item p{
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 32ch;
+  }
+
+  /* ---------- Atmosphäre / Einblick ---------- */
+  .atmosphere{
+    background: var(--bg);
+  }
+  .atmosphere-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: repeat(2, 200px);
+    gap: var(--space-2);
+  }
+  .atmosphere-grid .atmo-media:nth-child(1){
+    grid-row: 1 / 3;
+  }
+  .atmo-media{
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--moss);
+  }
+  .atmo-media img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .atmo-media.img-fallback{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
+  }
+  .atmo-media.img-fallback::before{
+    content: "";
+    width: 36px; height: 36px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+  }
+  .atmo-media.text-tile{
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    text-align: center;
+  }
+  .atmo-media.text-tile span{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--bg);
+    line-height: 1.4;
+  }
+
+  /* ---------- Kontakt-Teaser ---------- */
+  .contact-teaser{
+    background: var(--bg-paper);
+  }
+  .contact-inner{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-6);
+    align-items: center;
+    background: var(--ink);
+    border-radius: 22px;
+    padding: var(--space-5);
+  }
+  .contact-copy h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+    color: var(--bg);
+    margin: 0 0 var(--space-2);
+    line-height: 1.25;
+  }
+  .contact-copy p{
+    color: rgba(249,249,249,0.72);
+    font-size: 1rem;
+    max-width: 46ch;
+    margin: 0 0 var(--space-4);
+  }
+  .contact-inner .btn-primary{
+    background: var(--terracotta);
+    color: var(--ink);
+  }
+  .contact-inner .btn-primary:hover{
+    background: #dbb59c;
+    box-shadow: 0 6px 16px rgba(209,166,138,0.3);
+  }
+
+  .contact-details{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border-left: 1px solid rgba(249,249,249,0.14);
+    padding-left: var(--space-5);
+  }
+  .contact-detail-item{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .contact-detail-item svg{
+    width: 18px; height: 18px;
+    stroke: var(--terracotta);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .contact-detail-item div{ display: flex; flex-direction: column; }
+  .contact-detail-item strong{
+    color: var(--bg);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .contact-detail-item span{
+    color: rgba(249,249,249,0.6);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 900px){
+    .trust-grid{ grid-template-columns: 1fr; gap: var(--space-4); }
+    .atmosphere-grid{ grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
+    .contact-inner{ grid-template-columns: 1fr; padding: var(--space-4); }
+    .contact-details{ border-left: none; border-top: 1px solid rgba(249,249,249,0.14); padding-left: 0; padding-top: var(--space-4); }
+  }
+  @media (max-width: 600px){
+    .atmosphere-grid{ grid-template-columns: 1fr; grid-template-rows: 220px 160px 160px; }
+    .atmosphere-grid .atmo-media:nth-child(1){ grid-row: auto; }
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer{
+    background: var(--ink);
+    color: rgba(249,249,249,0.7);
+    padding: var(--space-5) 0 var(--space-3);
+  }
+  .footer-top{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid rgba(249,249,249,0.12);
+  }
+  .footer-brand{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .footer-brand .logo{ color: var(--bg); }
+  .footer-claim{
+    font-size: 0.92rem;
+    color: rgba(249,249,249,0.55);
+    max-width: 30ch;
+    margin: 0;
+  }
+  .footer-social{
+    display: flex;
+    gap: var(--space-2);
+    margin-top: 4px;
+  }
+  .footer-social a{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(249,249,249,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .footer-social a:hover{
+    border-color: var(--terracotta);
+    background: rgba(209,166,138,0.1);
+  }
+  .footer-social svg{ width: 15px; height: 15px; stroke: var(--bg); }
+
+  .footer-col h4{
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.45);
+    margin: 0 0 var(--space-2);
+    font-weight: 600;
+  }
+  .footer-col ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-col a{
+    font-size: 0.92rem;
+    color: rgba(249,249,249,0.8);
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover{ color: var(--terracotta); }
+
+  .footer-bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-3);
+    font-size: 0.8rem;
+    color: rgba(249,249,249,0.45);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .footer-bottom a{ color: rgba(249,249,249,0.6); }
+  .footer-bottom a:hover{ color: var(--terracotta); }
+
+  @media (max-width: 760px){
+    .footer-top{ grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); }
+    .footer-brand{ grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Shinrin Bonsai, Startseite">
+      <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+      Shinrin Bonsai
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html" class="active">Start</a></li>
+        <li><a href="geschichte.html">Geschichte</a></li>
+        <li><a href="produkte.html">Produkte</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="17" cy="21" r="1"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </button>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation">
+  <div class="mobile-nav-top">
+    <a href="index.html" class="logo">Shinrin Bonsai</a>
+    <button class="mobile-nav-close" aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="index.html" class="active">Start</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+    <li><a href="produkte.html">Produkte</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero" id="start">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Handgezogen, Baum für Baum</span>
+        <h1>Geduld, die wächst.<br><em>Bonsai mit Herz gezogen.</em></h1>
+        <p class="lede">
+          Jeder Baum hier hat Jahre der Pflege hinter sich — und noch viele vor sich.
+          Von der Auswahl bis zur Pflege: persönliche Beratung mit echter Sorgfalt.
+        </p>
+        <div class="hero-actions">
+          <a href="#produkte" class="btn btn-primary">
+            Bäume entdecken
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="geschichte.html" class="btn btn-ghost">Geschichte</a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <strong>12+</strong>
+            <span>Jahre Erfahrung</span>
+          </div>
+          <div class="hero-meta-item">
+            <strong>100%</strong>
+            <span>Persönliche Beratung</span>
+          </div>
+          <div class="hero-meta-item">
+            <strong>DE</strong>
+            <span>Aufzucht & Versand</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="hero-visual">
+        <img
+          src="assets/images/hero-baum.jpg"
+          alt="Bonsai-Baum mit freiliegenden Wurzeln in einer flachen Schale, warmes natürliches Licht"
+          loading="eager"
+          referrerpolicy="no-referrer"
+          onerror="this.closest('.hero-visual').classList.add('img-fallback'); this.remove();">
+        <span class="hero-visual-tag">Aus dem Garten</span>
+        <span class="hero-visual-caption">Japanische Schwarzkiefer, ca. 9 Jahre</span>
+        <img class="hero-seal" src="assets/images/logo-siegel.png" alt="Shinrin Bonsai Siegel">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KURZVORSTELLUNG ============ -->
+  <section class="section intro" id="kurzvorstellung">
+    <div class="container intro-inner">
+      <div class="intro-portrait" id="intro-portrait">
+        <img
+          src="assets/images/atelier-detail.jpg"
+          alt="Minimalistisch fotografierter Bonsai in ruhigem, warmem Licht"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          onerror="this.closest('.intro-portrait').classList.add('img-fallback'); this.remove();">
+      </div>
+
+      <div class="intro-content">
+        <span class="section-eyebrow">Wer dahintersteckt</span>
+        <p class="lede">„Die Ruhe, die in der Arbeit mit Bonsai liegt, lässt einen nicht mehr los — Jahr für Jahr aufs Neue.“</p>
+        <p class="body-text">
+          Jeder Baum, den Sie hier finden, ist über Jahre von Hand gezogen, geschnitten und begleitet —
+          mit Geduld statt Eile und mit echtem Respekt vor dem, was wächst. Diese Seite steht für Qualität,
+          die man spürt, und für Beratung, die ehrlich ist, nicht verkäuferisch.
+        </p>
+        <a href="geschichte.html" class="link-arrow">
+          Die Geschichte dahinter lesen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============ PRODUKT-TEASER ============ -->
+  <section class="section products-teaser" id="produkte">
+    <div class="container">
+      <div class="section-head teaser-head-row">
+        <div>
+          <span class="section-eyebrow">Das Angebot</span>
+          <h2>Bäume, Schalen und das richtige Werkzeug</h2>
+          <p>Eine kleine, sorgfältig zusammengestellte Auswahl — alles, was Sie für den Anfang oder zum Weiterpflegen brauchen.</p>
+        </div>
+        <a href="produkte.html" class="link-arrow">
+          Alle Produkte ansehen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="product-grid">
+
+        <!-- Produkt 1: Baum -->
+        <article class="product-card">
+          <div class="product-media">
+            <span class="product-category">Bonsai-Baum</span>
+            <img
+              src="assets/images/produkte/schwarzkiefer.jpg"
+              alt="Japanische Schwarzkiefer Bonsai in flacher Keramikschale"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.closest('.product-media').classList.add('img-fallback'); this.remove();">
+          </div>
+          <div class="product-info">
+            <h3>Japanische Schwarzkiefer</h3>
+            <p>Kräftiger Wuchs, ca. 9 Jahre alt — ideal für Einsteiger:innen mit Geduld.</p>
+            <div class="product-info-footer">
+              <span class="product-price">129 € <span>inkl. Schale</span></span>
+              <button class="add-to-cart" aria-label="Japanische Schwarzkiefer in den Warenkorb legen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produkt 2: Baum (minimalistisch) -->
+        <article class="product-card">
+          <div class="product-media">
+            <span class="product-category">Bonsai-Baum</span>
+            <img
+              src="assets/images/produkte/ulme.jpg"
+              alt="Kleinblättriger Bonsai, schlicht und minimalistisch fotografiert"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.closest('.product-media').classList.add('img-fallback'); this.remove();">
+          </div>
+          <div class="product-info">
+            <h3>Chinesisches Ulmenbäumchen</h3>
+            <p>Feine Blattstruktur, sehr pflegeleicht — auch für die Wohnung geeignet.</p>
+            <div class="product-info-footer">
+              <span class="product-price">79 € <span>inkl. Schale</span></span>
+              <button class="add-to-cart" aria-label="Chinesisches Ulmenbäumchen in den Warenkorb legen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produkt 3: Schale -->
+        <article class="product-card">
+          <div class="product-media">
+            <span class="product-category">Schale</span>
+            <img
+              src="assets/images/produkte/schale-erdton.jpg"
+              alt="Handgetöpferte Bonsai-Schale in Erdton"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.closest('.product-media').classList.add('img-fallback'); this.remove();">
+          </div>
+          <div class="product-info">
+            <h3>Handgetöpferte Schale, Erdton</h3>
+            <p>Unglasierte Keramik, in kleiner Werkstatt gefertigt — Unikat-Charakter.</p>
+            <div class="product-info-footer">
+              <span class="product-price">38 € <span>pro Stück</span></span>
+              <button class="add-to-cart" aria-label="Handgetöpferte Schale in den Warenkorb legen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produkt 4: Werkzeug -->
+        <article class="product-card">
+          <div class="product-media">
+            <span class="product-category">Werkzeug</span>
+            <img
+              src="assets/images/produkte/schneideset.jpg"
+              alt="Dreiteiliges Bonsai-Schneide-Set aus rostfreiem Stahl"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              onerror="this.closest('.product-media').classList.add('img-fallback'); this.remove();">
+          </div>
+          <div class="product-info">
+            <h3>Schneide-Set, 3-teilig</h3>
+            <p>Rostfreier Stahl, präzise für Triebe, Wurzeln und feine Verzweigungen.</p>
+            <div class="product-info-footer">
+              <span class="product-price">54 € <span>im Set</span></span>
+              <button class="add-to-cart" aria-label="Schneide-Set in den Warenkorb legen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VERTRAUENSELEMENT ============ -->
+  <section class="section trust" id="vertrauen">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Warum hier kaufen</span>
+        <h2>Was jeden Baum begleitet</h2>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3>Qualitätsversprechen</h3>
+          <p>Jeder Baum wird vor dem Versand sorgfältig geprüft — auf Wuchsform, Gesundheit und Vitalität.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6l1 13.5a2 2 0 0 0 2 1.5h8M7 13h12l2-7H6.5"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+          </div>
+          <h3>Pflegehinweise inklusive</h3>
+          <p>Jede Bestellung kommt mit klaren, verständlichen Hinweisen zu Gießen, Schnitt und Standort.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Persönliche Beratung</h3>
+          <p>Fragen vor oder nach dem Kauf werden direkt und ohne Umwege beantwortet — kein Callcenter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EINBLICK / ATMOSPHÄRE ============ -->
+  <section class="section atmosphere" id="atmosphaere">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Einblick</span>
+        <h2>Aus dem Garten und der Werkstatt</h2>
+        <p>Handwerk braucht Zeit und einen Ort, an dem sie vergehen darf — ein kleiner Einblick in den Entstehungsprozess.</p>
+      </div>
+
+      <div class="atmosphere-grid">
+        <div class="atmo-media">
+          <img
+            src="assets/images/werkstatt-startseite-1.jpg"
+            alt="Bonsai-Baum in ruhigem Licht vor einem Fenster"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            onerror="this.closest('.atmo-media').classList.add('img-fallback'); this.remove();">
+        </div>
+        <div class="atmo-media">
+          <img
+            src="assets/images/werkstatt-startseite-2.jpg"
+            alt="Nahaufnahme eines gepflegten Bonsai-Bäumchens"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            onerror="this.closest('.atmo-media').classList.add('img-fallback'); this.remove();">
+        </div>
+        <div class="atmo-media text-tile">
+          <span>„Geduld ist kein Warten — sie ist tägliche, aufmerksame Pflege.“</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT-TEASER ============ -->
+  <section class="section contact-teaser" id="kontakt">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-copy">
+          <span class="hero-eyebrow" style="color:var(--terracotta)">Fragen sind willkommen</span>
+          <h2>Fragen zu einem Baum, zur Pflege — oder einfach nur Hallo sagen?</h2>
+          <p>Eine kurze Nachricht genügt. Antworten kommen persönlich und meist innerhalb weniger Tage.</p>
+          <a href="kontakt.html" class="btn btn-primary">
+            Nachricht schreiben
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="contact-details">
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            <div>
+              <strong>E-Mail</strong>
+              <span>kontakt@shinrin-bonsai.de</span>
+            </div>
+          </div>
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <strong>Telefon</strong>
+              <span>nach Vereinbarung</span>
+            </div>
+          </div>
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <strong>Abholung</strong>
+              <span>vor Ort, nach Absprache</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+          Shinrin Bonsai
+        </a>
+        <p class="footer-claim">Geduld, die wächst. Bonsai mit Herz gezogen.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="geschichte.html">Geschichte</a></li>
+          <li><a href="produkte.html">Produkte</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="#vertrauen">Pflegehinweise</a></li>
+          <li><a href="#">Versand</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Shinrin Bonsai. Alle Rechte vorbehalten.</span>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeBtn = document.querySelector('.mobile-nav-close');
+
+  function openNav(){
+    mobileNav.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    mobileNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+</script>
+
+</body>
+</html>

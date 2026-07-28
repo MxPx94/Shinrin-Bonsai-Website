@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — Shinrin Bonsai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F9F9F9;
+    --bg-paper: #FFFFFF;
+    --ink: #241E1C;
+    --ink-soft: #2C302E;
+    --moss: #60725A;
+    --moss-dark: #4C5C47;
+    --terracotta: #D1A68A;
+    --grey: #A0A0A0;
+    --line: rgba(36,30,28,0.10);
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+
+    --container: 1180px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+    --space-5: 64px;
+    --space-6: 96px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width: 100%; display: block; }
+  a{ color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  a:hover{ text-decoration-color: var(--moss); }
+  ul{ list-style: none; margin: 0; padding: 0; }
+  button{ font-family: inherit; cursor: pointer; }
+
+  :focus-visible{ outline: 2px solid var(--moss); outline-offset: 3px; }
+
+  .container{
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249,249,249,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner{ display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .logo{
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .logo-mark{ width: 26px; height: 26px; flex-shrink: 0; }
+  .logo-mark path{ stroke: var(--moss); }
+
+  .main-nav{ display: flex; align-items: center; gap: var(--space-5); }
+  .main-nav ul{ display: flex; gap: var(--space-4); }
+  .main-nav a{
+    font-size: 0.95rem; font-weight: 500; color: var(--ink-soft);
+    position: relative; padding: 4px 0; transition: color 0.2s ease;
+  }
+  .main-nav a::after{
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--terracotta);
+    transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;
+  }
+  .main-nav a:hover{ color: var(--ink); }
+  .main-nav a:hover::after{ transform: scaleX(1); transform-origin: left; }
+
+  .header-actions{ display: flex; align-items: center; gap: var(--space-3); }
+  .cart-button{
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+  }
+  .cart-button svg{ width: 18px; height: 18px; stroke: var(--ink); }
+  .cart-count{
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: #fff;
+    font-size: 0.62rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+
+  .burger{
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; background: none; border: none; padding: 0;
+  }
+  .burger span{ display: block; height: 1.5px; width: 22px; background: var(--ink); margin: 0 auto; }
+
+  .mobile-nav{
+    position: fixed; inset: 0; background: var(--bg); z-index: 200;
+    display: flex; flex-direction: column; padding: var(--space-4) var(--space-3);
+    transform: translateY(-100%); transition: transform 0.35s ease;
+  }
+  .mobile-nav.open{ transform: translateY(0); }
+  .mobile-nav-top{ display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5); }
+  .mobile-nav-close{
+    width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%;
+    background: none; display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-close svg{ width: 16px; height: 16px; }
+  .mobile-nav ul{ display: flex; flex-direction: column; gap: var(--space-3); }
+  .mobile-nav a{ font-family: var(--font-display); font-size: 2rem; font-weight: 400; color: var(--ink); text-decoration: none; }
+
+  /* ---------- Legal content ---------- */
+  .section{ padding: var(--space-6) 0; }
+  .section-head{ max-width: 640px; margin: 0 0 var(--space-4); }
+  .section-eyebrow{
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--moss); font-weight: 600; margin-bottom: var(--space-2);
+  }
+  .section-eyebrow::before{ content: ""; width: 28px; height: 1px; background: var(--terracotta); }
+  .section-head h1{
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2rem, 3.2vw, 2.7rem);
+    line-height: 1.15; margin: 0 0 var(--space-2); color: var(--ink);
+  }
+  .section-head p{ color: var(--ink-soft); font-size: 0.98rem; margin: 0; max-width: 60ch; }
+
+  .legal-wrap{ max-width: 760px; }
+  .legal-notice{
+    background: rgba(209,166,138,0.10);
+    border: 1px solid rgba(209,166,138,0.3);
+    border-radius: 12px;
+    padding: var(--space-3);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-5);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .legal-notice svg{ width: 20px; height: 20px; stroke: var(--terracotta); flex-shrink: 0; margin-top: 2px; }
+
+  .legal-block{
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--line);
+  }
+  .legal-block:first-of-type{ border-top: none; padding-top: 0; }
+  .legal-block h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+  }
+  .legal-block p{
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-2);
+  }
+  .legal-block p:last-child{ margin-bottom: 0; }
+
+  .legal-fields{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .legal-fields .placeholder{
+    color: var(--terracotta);
+    font-style: italic;
+  }
+
+  @media (max-width: 760px){
+    .main-nav ul{ display: none; }
+    .burger{ display: flex; }
+    .container{ padding: 0 var(--space-3); }
+  }
+  @media (max-width: 600px){
+    .section{ padding: var(--space-5) 0; }
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background: var(--ink); color: var(--bg); padding: var(--space-5) 0 var(--space-3); }
+  .footer-top{ display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-4); padding-bottom: var(--space-4); }
+  .footer-brand .logo{ color: var(--bg); }
+  .footer-brand .logo-mark path{ stroke: var(--terracotta); }
+  .footer-claim{ font-size: 0.88rem; color: rgba(249,249,249,0.55); margin: var(--space-2) 0 var(--space-3); max-width: 30ch; }
+  .footer-social{ display: flex; gap: var(--space-2); }
+  .footer-social a{
+    width: 34px; height: 34px; border: 1px solid rgba(249,249,249,0.18); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+  }
+  .footer-social a:hover{ border-color: var(--terracotta); background: rgba(209,166,138,0.08); }
+  .footer-social svg{ width: 15px; height: 15px; stroke: var(--bg); }
+  .footer-col h4{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(249,249,249,0.45); margin: 0 0 var(--space-2); font-weight: 600; }
+  .footer-col ul{ display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a{ font-size: 0.92rem; color: rgba(249,249,249,0.78); text-decoration: none; }
+  .footer-col a:hover{ color: var(--terracotta); }
+  .footer-bottom{
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: var(--space-3); font-size: 0.8rem; color: rgba(249,249,249,0.45);
+    flex-wrap: wrap; gap: var(--space-2);
+  }
+  .footer-bottom a{ color: rgba(249,249,249,0.6); text-decoration: none; }
+  .footer-bottom a:hover{ color: var(--terracotta); }
+
+  @media (max-width: 760px){
+    .footer-top{ grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); }
+    .footer-brand{ grid-column: 1 / -1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Shinrin Bonsai, Startseite" style="text-decoration:none;">
+      <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+      Shinrin Bonsai
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html" style="text-decoration:none;">Start</a></li>
+        <li><a href="geschichte.html" style="text-decoration:none;">Geschichte</a></li>
+        <li><a href="produkte.html" style="text-decoration:none;">Produkte</a></li>
+        <li><a href="kontakt.html" style="text-decoration:none;">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="17" cy="21" r="1"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </button>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation">
+  <div class="mobile-nav-top">
+    <a href="index.html" class="logo" style="text-decoration:none;">Shinrin Bonsai</a>
+    <button class="mobile-nav-close" aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="index.html">Start</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+    <li><a href="produkte.html">Produkte</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Rechtliches</span>
+        <h1>Impressum</h1>
+        <p>Pflichtangaben gemäß Digitale-Dienste-Gesetz (DDG).</p>
+      </div>
+
+      <div class="legal-wrap">
+
+        <div class="legal-notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span>Alle markierten Angaben auf dieser Seite sind Platzhalter und müssen vor Veröffentlichung durch die tatsächlichen, rechtlich korrekten Daten ersetzt werden. Dieses Impressum ersetzt keine Rechtsberatung.</span>
+        </div>
+
+        <div class="legal-block">
+          <h2>Anbieterkennzeichnung gemäß § 5 DDG</h2>
+          <div class="legal-fields">
+            <span class="placeholder">[Vor- und Nachname / Firmenname]</span>
+            <span class="placeholder">[Straße und Hausnummer]</span>
+            <span class="placeholder">[Postleitzahl und Ort]</span>
+            <span class="placeholder">[Land]</span>
+          </div>
+        </div>
+
+        <div class="legal-block">
+          <h2>Kontakt</h2>
+          <div class="legal-fields">
+            <span>E-Mail: <a href="mailto:kontakt@shinrin-bonsai.de">kontakt@shinrin-bonsai.de</a></span>
+            <span class="placeholder">Telefon: [Telefonnummer, falls angegeben]</span>
+          </div>
+        </div>
+
+        <div class="legal-block">
+          <h2>Umsatzsteuer-ID</h2>
+          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:</p>
+          <div class="legal-fields">
+            <span class="placeholder">[USt-IdNr., falls vorhanden]</span>
+          </div>
+        </div>
+
+        <div class="legal-block">
+          <h2>Verantwortlich für den Inhalt</h2>
+          <p>Verantwortlich nach § 18 Abs. 2 MStV, sofern abweichend von der oben genannten Anbieterkennzeichnung:</p>
+          <div class="legal-fields">
+            <span class="placeholder">[Name, Anschrift wie oben]</span>
+          </div>
+        </div>
+
+        <div class="legal-block">
+          <h2>EU-Streitschlichtung</h2>
+          <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit, abrufbar unter <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+          <p>Es besteht weder eine Verpflichtung noch eine Bereitschaft, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. <span class="placeholder">[Diese Aussage vor Veröffentlichung anhand der tatsächlichen Geschäftspraxis prüfen.]</span></p>
+        </div>
+
+        <div class="legal-block">
+          <h2>Haftung für Inhalte</h2>
+          <p>Als Diensteanbieter wird für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen Verantwortung übernommen. Eine Verpflichtung zur Überwachung übermittelter oder gespeicherter fremder Informationen besteht nicht. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.</p>
+        </div>
+
+        <div class="legal-block">
+          <h2>Haftung für Links</h2>
+          <p>Dieses Angebot enthält gegebenenfalls Links zu externen Webseiten Dritter, auf deren Inhalte kein Einfluss besteht. Für diese fremden Inhalte kann daher keine Gewähr übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+        </div>
+
+        <div class="legal-block">
+          <h2>Urheberrecht</h2>
+          <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+          <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+          Shinrin Bonsai
+        </a>
+        <p class="footer-claim">Geduld, die wächst. Bonsai mit Herz gezogen.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="geschichte.html">Geschichte</a></li>
+          <li><a href="produkte.html">Produkte</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="index.html#vertrauen">Pflegehinweise</a></li>
+          <li><a href="#">Versand</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Shinrin Bonsai. Alle Rechte vorbehalten.</span>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeBtn = document.querySelector('.mobile-nav-close');
+  function openNav(){
+    mobileNav.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    mobileNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+</script>
+
+</body>
+</html>

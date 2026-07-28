@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt — Shinrin Bonsai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F9F9F9;
+    --bg-paper: #FFFFFF;
+    --ink: #241E1C;
+    --ink-soft: #2C302E;
+    --moss: #60725A;
+    --moss-dark: #4C5C47;
+    --terracotta: #D1A68A;
+    --grey: #A0A0A0;
+    --line: rgba(36,30,28,0.10);
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+
+    --container: 1180px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+    --space-5: 64px;
+    --space-6: 96px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width: 100%; display: block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; margin: 0; padding: 0; }
+  button{ font-family: inherit; cursor: pointer; }
+  input, textarea, select{ font-family: inherit; font-size: inherit; }
+
+  :focus-visible{ outline: 2px solid var(--moss); outline-offset: 3px; }
+
+  .container{
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249,249,249,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner{ display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .logo{
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .logo-mark{ width: 26px; height: 26px; flex-shrink: 0; }
+  .logo-mark path{ stroke: var(--moss); }
+
+  .main-nav{ display: flex; align-items: center; gap: var(--space-5); }
+  .main-nav ul{ display: flex; gap: var(--space-4); }
+  .main-nav a{
+    font-size: 0.95rem; font-weight: 500; color: var(--ink-soft);
+    position: relative; padding: 4px 0; transition: color 0.2s ease;
+  }
+  .main-nav a.active{ color: var(--ink); }
+  .main-nav a::after{
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--terracotta);
+    transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;
+  }
+  .main-nav a:hover{ color: var(--ink); }
+  .main-nav a:hover::after{ transform: scaleX(1); transform-origin: left; }
+  .main-nav a.active::after{ transform: scaleX(1); background: var(--moss); }
+
+  .header-actions{ display: flex; align-items: center; gap: var(--space-3); }
+  .cart-button{
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .cart-button:hover{ border-color: var(--moss); background: var(--bg-paper); }
+  .cart-button svg{ width: 18px; height: 18px; stroke: var(--ink); }
+  .cart-count{
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: #fff;
+    font-size: 0.62rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+
+  .burger{
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; background: none; border: none; padding: 0;
+  }
+  .burger span{ display: block; height: 1.5px; width: 22px; background: var(--ink); margin: 0 auto; }
+
+  .mobile-nav{
+    position: fixed; inset: 0; background: var(--bg); z-index: 200;
+    display: flex; flex-direction: column; padding: var(--space-4) var(--space-3);
+    transform: translateY(-100%); transition: transform 0.35s ease;
+  }
+  .mobile-nav.open{ transform: translateY(0); }
+  .mobile-nav-top{ display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5); }
+  .mobile-nav-close{
+    width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%;
+    background: none; display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-close svg{ width: 16px; height: 16px; }
+  .mobile-nav ul{ display: flex; flex-direction: column; gap: var(--space-3); }
+  .mobile-nav a{ font-family: var(--font-display); font-size: 2rem; font-weight: 400; color: var(--ink); }
+  .mobile-nav a.active{ color: var(--moss-dark); }
+
+  /* ---------- Section utilities ---------- */
+  .section{ padding: var(--space-6) 0; }
+  .section-head{ max-width: 640px; margin: 0 0 var(--space-4); }
+  .section-eyebrow{
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--moss); font-weight: 600; margin-bottom: var(--space-2);
+  }
+  .section-eyebrow::before{ content: ""; width: 28px; height: 1px; background: var(--terracotta); }
+  .section-head h1{
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2.1rem, 3.4vw, 2.9rem);
+    line-height: 1.15; margin: 0 0 var(--space-2); color: var(--ink);
+  }
+  .section-head p{ color: var(--ink-soft); font-size: 1.02rem; margin: 0; max-width: 56ch; }
+
+  .divider{ width: 100%; height: 1px; background: var(--line); border: none; margin: 0; }
+
+  .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 28px; border-radius: 999px;
+    font-size: 0.95rem; font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    border: 1px solid transparent; white-space: nowrap;
+  }
+  .btn-primary{ background: var(--moss); color: #fff; box-shadow: 0 1px 2px rgba(36,30,28,0.08); }
+  .btn-primary:hover{ background: var(--moss-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(76,92,71,0.28); }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink); }
+  .btn-full{ width: 100%; }
+  .btn svg{ width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ---------- Kontakt-Layout ---------- */
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .contact-intro p.lede{
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 48ch;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* ---------- Formular ---------- */
+  .contact-form{
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .form-field{ display: flex; flex-direction: column; gap: 6px; }
+  .form-field label{ font-size: 0.86rem; font-weight: 500; color: var(--ink-soft); }
+  .form-field .required{ color: var(--terracotta); }
+  .form-field input, .form-field select, .form-field textarea{
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink);
+    transition: border-color 0.2s ease;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    border-color: var(--moss);
+    outline: none;
+  }
+  .form-field textarea{ resize: vertical; min-height: 130px; font-family: inherit; }
+  .form-field select{ appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232C302E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding-right: 38px; }
+  .form-hint{ font-size: 0.78rem; color: var(--grey); margin-top: -6px; }
+
+  .form-consent{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+  }
+  .form-consent input{ margin-top: 3px; accent-color: var(--moss); flex-shrink: 0; }
+  .form-consent a{ text-decoration: underline; }
+
+  .form-success{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-3);
+  }
+  .form-success.show{ display: flex; }
+  .form-success svg{ width: 44px; height: 44px; stroke: var(--moss); }
+  .form-success h3{ font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; margin: 0; }
+  .form-success p{ color: var(--ink-soft); font-size: 0.92rem; margin: 0; max-width: 38ch; }
+
+  /* ---------- Sidebar: Direkte Kontaktdaten ---------- */
+  .contact-side{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .contact-card{
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--space-3);
+  }
+  .contact-card h3{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+  }
+  .contact-detail-item{
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .contact-detail-item:first-of-type{ border-top: none; padding-top: 0; }
+  .contact-detail-item svg{ width: 19px; height: 19px; stroke: var(--moss-dark); flex-shrink: 0; margin-top: 2px; }
+  .contact-detail-item strong{ display: block; font-size: 0.88rem; color: var(--ink); }
+  .contact-detail-item span, .contact-detail-item a{ font-size: 0.86rem; color: var(--grey); }
+  .contact-detail-item a:hover{ color: var(--moss-dark); }
+
+  .contact-hours-row{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.86rem;
+    padding: 6px 0;
+  }
+  .contact-hours-row span:first-child{ color: var(--ink-soft); }
+  .contact-hours-row span:last-child{ color: var(--grey); }
+
+  .contact-social{ display: flex; gap: 10px; margin-top: var(--space-2); }
+  .contact-social a{
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .contact-social a:hover{ border-color: var(--moss); background: rgba(96,114,90,0.06); }
+  .contact-social svg{ width: 16px; height: 16px; stroke: var(--ink); }
+
+  .map-placeholder{
+    aspect-ratio: 16/10;
+    border-radius: 12px;
+    background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(249,249,249,0.85);
+    text-align: center;
+    padding: var(--space-3);
+  }
+  .map-placeholder svg{ width: 30px; height: 30px; stroke: rgba(249,249,249,0.9); }
+  .map-placeholder span{ font-size: 0.82rem; max-width: 28ch; }
+
+  @media (max-width: 980px){
+    .contact-grid{ grid-template-columns: 1fr; gap: var(--space-4); }
+    .form-row{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px){
+    .main-nav ul{ display: none; }
+    .burger{ display: flex; }
+    .container{ padding: 0 var(--space-3); }
+  }
+  @media (max-width: 600px){
+    .section{ padding: var(--space-5) 0; }
+    .contact-form{ padding: var(--space-3); }
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background: var(--ink); color: var(--bg); padding: var(--space-5) 0 var(--space-3); }
+  .footer-top{ display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-4); padding-bottom: var(--space-4); }
+  .footer-brand .logo{ color: var(--bg); }
+  .footer-brand .logo-mark path{ stroke: var(--terracotta); }
+  .footer-claim{ font-size: 0.88rem; color: rgba(249,249,249,0.55); margin: var(--space-2) 0 var(--space-3); max-width: 30ch; }
+  .footer-social{ display: flex; gap: var(--space-2); }
+  .footer-social a{
+    width: 34px; height: 34px; border: 1px solid rgba(249,249,249,0.18); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .footer-social a:hover{ border-color: var(--terracotta); background: rgba(209,166,138,0.08); }
+  .footer-social svg{ width: 15px; height: 15px; stroke: var(--bg); }
+  .footer-col h4{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(249,249,249,0.45); margin: 0 0 var(--space-2); font-weight: 600; }
+  .footer-col ul{ display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a{ font-size: 0.92rem; color: rgba(249,249,249,0.78); transition: color 0.2s ease; }
+  .footer-col a:hover{ color: var(--terracotta); }
+  .footer-bottom{
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: var(--space-3); font-size: 0.8rem; color: rgba(249,249,249,0.45);
+    flex-wrap: wrap; gap: var(--space-2);
+  }
+  .footer-bottom a{ color: rgba(249,249,249,0.6); }
+  .footer-bottom a:hover{ color: var(--terracotta); }
+
+  @media (max-width: 760px){
+    .footer-top{ grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); }
+    .footer-brand{ grid-column: 1 / -1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Shinrin Bonsai, Startseite">
+      <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+      Shinrin Bonsai
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="geschichte.html">Geschichte</a></li>
+        <li><a href="produkte.html">Produkte</a></li>
+        <li><a href="kontakt.html" class="active">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="17" cy="21" r="1"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </button>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation">
+  <div class="mobile-nav-top">
+    <a href="index.html" class="logo">Shinrin Bonsai</a>
+    <button class="mobile-nav-close" aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="index.html">Start</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+    <li><a href="produkte.html">Produkte</a></li>
+    <li><a href="kontakt.html" class="active">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="section" style="padding-bottom: var(--space-4);">
+    <div class="container">
+      <div class="section-head contact-intro">
+        <span class="section-eyebrow">Im Austausch</span>
+        <h1>Schreiben Sie gern</h1>
+        <p class="lede">Fragen zu einem Baum, zur Pflege oder einfach nur Hallo sagen — eine kurze Nachricht genügt. Antworten kommen persönlich, meist innerhalb weniger Tage.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- ============ FORMULAR ============ -->
+        <form class="contact-form" id="contact-form" aria-label="Kontaktformular">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="c-name">Name <span class="required">*</span></label>
+              <input type="text" id="c-name" name="name" required autocomplete="name">
+            </div>
+            <div class="form-field">
+              <label for="c-email">E-Mail <span class="required">*</span></label>
+              <input type="email" id="c-email" name="email" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="c-subject">Worum geht es?</label>
+            <select id="c-subject" name="subject">
+              <option value="Allgemeine Frage">Allgemeine Frage</option>
+              <option value="Frage zu einer Bestellung">Frage zu einer Bestellung</option>
+              <option value="Pflegehinweise">Frage zur Pflege</option>
+              <option value="Abholung vor Ort">Abholung vor Ort</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="c-message">Nachricht <span class="required">*</span></label>
+            <textarea id="c-message" name="message" required placeholder="Ihre Nachricht …"></textarea>
+          </div>
+
+          <label class="form-consent">
+            <input type="checkbox" required>
+            <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage gespeichert werden. Mehr dazu in der <a href="#">Datenschutzerklärung</a>.</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            Nachricht senden
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+
+          <div class="form-success" id="form-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+            <h3>E-Mail-Programm wird geöffnet</h3>
+            <p>Die Nachricht ist vorbereitet — bitte im geöffneten E-Mail-Programm absenden, um sie zu übermitteln.</p>
+          </div>
+        </form>
+
+        <!-- ============ SIDEBAR: DIREKTE KONTAKTDATEN ============ -->
+        <div class="contact-side">
+          <div class="contact-card">
+            <h3>Direkt erreichbar</h3>
+            <div class="contact-detail-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+              <div>
+                <strong>E-Mail</strong>
+                <a href="mailto:kontakt@shinrin-bonsai.de">kontakt@shinrin-bonsai.de</a>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div>
+                <strong>Telefon</strong>
+                <span>nach Vereinbarung</span>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <strong>Abholung</strong>
+                <span>vor Ort, nach Absprache</span>
+              </div>
+            </div>
+            <div class="contact-social">
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="#" aria-label="Pinterest">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <h3>Öffnungszeiten / Besuch</h3>
+            <p class="form-hint" style="margin-bottom: var(--space-2);">Besuche im Garten sind nach Vereinbarung möglich — am liebsten vorab kurz per E-Mail abstimmen.</p>
+            <div class="contact-hours-row"><span>Mo – Fr</span><span>nach Vereinbarung</span></div>
+            <div class="contact-hours-row"><span>Sa</span><span>10:00 – 14:00 Uhr</span></div>
+            <div class="contact-hours-row"><span>So</span><span>geschlossen</span></div>
+          </div>
+
+          <div class="map-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Standort / Karte folgt, sobald die Adresse feststeht</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+          Shinrin Bonsai
+        </a>
+        <p class="footer-claim">Geduld, die wächst. Bonsai mit Herz gezogen.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="geschichte.html">Geschichte</a></li>
+          <li><a href="produkte.html">Produkte</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="index.html#vertrauen">Pflegehinweise</a></li>
+          <li><a href="#">Versand</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Shinrin Bonsai. Alle Rechte vorbehalten.</span>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeBtn = document.querySelector('.mobile-nav-close');
+  function openNav(){
+    mobileNav.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    mobileNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  /* ============ Formular -> mailto ============ */
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('c-name').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const subject = document.getElementById('c-subject').value;
+    const message = document.getElementById('c-message').value.trim();
+
+    const body = [
+      `Name: ${name}`,
+      `E-Mail: ${email}`,
+      `Betreff: ${subject}`,
+      '',
+      'Nachricht:',
+      message
+    ].join('\n');
+
+    const mailSubject = encodeURIComponent(`${subject} — Anfrage über shinrin-bonsai.de`);
+    const mailto = `mailto:kontakt@shinrin-bonsai.de?subject=${mailSubject}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    form.querySelectorAll('.form-field, .form-consent, button[type="submit"]').forEach(el => el.style.display = 'none');
+    success.classList.add('show');
+  });
+</script>
+
+</body>
+</html>

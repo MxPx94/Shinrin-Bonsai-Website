@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produkte — Shinrin Bonsai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F9F9F9;
+    --bg-paper: #FFFFFF;
+    --ink: #241E1C;
+    --ink-soft: #2C302E;
+    --moss: #60725A;
+    --moss-dark: #4C5C47;
+    --terracotta: #D1A68A;
+    --grey: #A0A0A0;
+    --line: rgba(36,30,28,0.10);
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+
+    --container: 1180px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+    --space-5: 64px;
+    --space-6: 96px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width: 100%; display: block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; margin: 0; padding: 0; }
+  button{ font-family: inherit; cursor: pointer; }
+  input, textarea, select{ font-family: inherit; font-size: inherit; }
+
+  :focus-visible{ outline: 2px solid var(--moss); outline-offset: 3px; }
+
+  .container{
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249,249,249,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner{ display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .logo{
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .logo-mark{ width: 26px; height: 26px; flex-shrink: 0; }
+  .logo-mark path{ stroke: var(--moss); }
+
+  .main-nav{ display: flex; align-items: center; gap: var(--space-5); }
+  .main-nav ul{ display: flex; gap: var(--space-4); }
+  .main-nav a{
+    font-size: 0.95rem; font-weight: 500; color: var(--ink-soft);
+    position: relative; padding: 4px 0; transition: color 0.2s ease;
+  }
+  .main-nav a.active{ color: var(--ink); }
+  .main-nav a::after{
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--terracotta);
+    transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;
+  }
+  .main-nav a:hover{ color: var(--ink); }
+  .main-nav a:hover::after{ transform: scaleX(1); transform-origin: left; }
+  .main-nav a.active::after{ transform: scaleX(1); background: var(--moss); }
+
+  .header-actions{ display: flex; align-items: center; gap: var(--space-3); }
+  .cart-button{
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .cart-button:hover{ border-color: var(--moss); background: var(--bg-paper); }
+  .cart-button svg{ width: 18px; height: 18px; stroke: var(--ink); }
+  .cart-count{
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: #fff;
+    font-size: 0.62rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  .cart-count.bump{ transform: scale(1.35); }
+
+  .burger{
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; background: none; border: none; padding: 0;
+  }
+  .burger span{ display: block; height: 1.5px; width: 22px; background: var(--ink); margin: 0 auto; }
+
+  .mobile-nav{
+    position: fixed; inset: 0; background: var(--bg); z-index: 200;
+    display: flex; flex-direction: column; padding: var(--space-4) var(--space-3);
+    transform: translateY(-100%); transition: transform 0.35s ease;
+  }
+  .mobile-nav.open{ transform: translateY(0); }
+  .mobile-nav-top{ display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5); }
+  .mobile-nav-close{
+    width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%;
+    background: none; display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-close svg{ width: 16px; height: 16px; }
+  .mobile-nav ul{ display: flex; flex-direction: column; gap: var(--space-3); }
+  .mobile-nav a{ font-family: var(--font-display); font-size: 2rem; font-weight: 400; color: var(--ink); }
+  .mobile-nav a.active{ color: var(--moss-dark); }
+
+  /* ---------- Section utilities ---------- */
+  .section{ padding: var(--space-6) 0; }
+  .section-head{ max-width: 640px; margin: 0 0 var(--space-4); }
+  .section-eyebrow{
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--moss); font-weight: 600; margin-bottom: var(--space-2);
+  }
+  .section-eyebrow::before{ content: ""; width: 28px; height: 1px; background: var(--terracotta); }
+  .section-head h1{
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2.1rem, 3.4vw, 2.9rem);
+    line-height: 1.15; margin: 0 0 var(--space-2); color: var(--ink);
+  }
+  .section-head p{ color: var(--ink-soft); font-size: 1.02rem; margin: 0; max-width: 56ch; }
+
+  .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 28px; border-radius: 999px;
+    font-size: 0.95rem; font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    border: 1px solid transparent; white-space: nowrap;
+  }
+  .btn-primary{ background: var(--moss); color: #fff; box-shadow: 0 1px 2px rgba(36,30,28,0.08); }
+  .btn-primary:hover{ background: var(--moss-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(76,92,71,0.28); }
+  .btn-primary:disabled{ background: var(--grey); box-shadow: none; cursor: not-allowed; transform: none; }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink); }
+  .btn-full{ width: 100%; }
+  .btn svg{ width: 16px; height: 16px; flex-shrink: 0; }
+
+  .img-fallback{ display: flex; align-items: center; justify-content: center; }
+  .img-fallback::before{
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23F9F9F9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 23V13'/%3E%3Cpath d='M13 13C13 13 8 12 7 7C7 7 12 6 13 11'/%3E%3Cpath d='M13 11C14 6 19 7 19 7C18 12 13 13 13 13'/%3E%3Cellipse cx='13' cy='23.5' rx='6' ry='1.2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: center; opacity: 0.6;
+  }
+
+  /* ---------- Kategorie-Filter ---------- */
+  .filter-bar{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--space-4);
+  }
+  .filter-pill{
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-paper);
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .filter-pill:hover{ border-color: var(--moss); }
+  .filter-pill[aria-pressed="true"]{
+    background: var(--moss);
+    border-color: var(--moss);
+    color: #fff;
+  }
+
+  .results-meta{
+    font-size: 0.84rem;
+    color: var(--grey);
+    margin-bottom: var(--space-3);
+  }
+
+  /* ---------- Produktraster ---------- */
+  .product-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+  .product-card{
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    text-align: left;
+  }
+  .product-card.is-hidden{ display: none; }
+  .product-card-trigger{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+  }
+  .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(36,30,28,0.08);
+    border-color: rgba(96,114,90,0.25);
+  }
+  .product-media{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--moss);
+    overflow: hidden;
+  }
+  .product-media img{
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-media img{ transform: scale(1.05); }
+  .product-media.icon-tile{ display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .product-media.icon-tile.alt{ background: linear-gradient(160deg, var(--terracotta) 0%, #b98969 100%); }
+  .product-media.icon-tile svg{ width: 44px; height: 44px; stroke: #F9F9F9; opacity: 0.85; }
+  .product-media.img-fallback{ background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .product-media.img-fallback::before{ width: 40px; height: 40px; }
+
+  .product-category{
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(249,249,249,0.92);
+    backdrop-filter: blur(4px);
+    color: var(--ink);
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px; z-index: 2;
+  }
+  .product-stock{
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(36,30,28,0.55);
+    color: #fff;
+    font-size: 0.66rem; font-weight: 600;
+    padding: 5px 9px; border-radius: 999px; z-index: 2;
+  }
+
+  .product-info{ padding: var(--space-3); display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .product-info h3{ font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; margin: 0; color: var(--ink); }
+  .product-info p{ font-size: 0.86rem; color: var(--grey); margin: 0 0 8px; line-height: 1.5; flex: 1; }
+  .product-info-footer{ margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+  .product-price{ font-weight: 600; color: var(--ink); font-size: 0.96rem; }
+  .product-price span{ color: var(--grey); font-weight: 400; font-size: 0.76rem; }
+
+  .add-to-cart{
+    display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .add-to-cart svg{ width: 15px; height: 15px; stroke: var(--ink); transition: stroke 0.2s ease; }
+  .add-to-cart:hover{ background: var(--moss); border-color: var(--moss); transform: scale(1.06); }
+  .add-to-cart:hover svg{ stroke: #fff; }
+  .add-to-cart.added{ background: var(--moss); border-color: var(--moss); }
+  .add-to-cart.added svg{ stroke: #fff; }
+
+  .empty-state{
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-6) var(--space-3);
+    color: var(--grey);
+  }
+  .empty-state p{ margin: var(--space-2) 0 0; }
+
+  @media (max-width: 980px){
+    .product-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px){
+    .section{ padding: var(--space-5) 0; }
+    .product-grid{ grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  }
+
+  /* ============ MODAL: Produktdetail ============ */
+  .modal-overlay{
+    position: fixed; inset: 0;
+    background: rgba(36,30,28,0.55);
+    backdrop-filter: blur(2px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay.open{ opacity: 1; pointer-events: auto; }
+
+  .modal{
+    background: var(--bg-paper);
+    border-radius: 18px;
+    max-width: 880px;
+    width: 100%;
+    max-height: 88vh;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.3s ease;
+  }
+  .modal-overlay.open .modal{ transform: translateY(0) scale(1); }
+
+  .modal-close{
+    position: absolute; top: 16px; right: 16px; z-index: 5;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(249,249,249,0.9);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close svg{ width: 16px; height: 16px; stroke: var(--ink); }
+  .modal-close:hover{ background: var(--bg-paper); }
+
+  .modal-media{
+    position: relative;
+    min-height: 320px;
+    background: var(--moss);
+  }
+  .modal-media img{ width: 100%; height: 100%; object-fit: cover; }
+  .modal-media.icon-tile{ display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .modal-media.icon-tile.alt{ background: linear-gradient(160deg, var(--terracotta) 0%, #b98969 100%); }
+  .modal-media.icon-tile svg{ width: 76px; height: 76px; stroke: #F9F9F9; opacity: 0.85; }
+  .modal-media.img-fallback{ background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .modal-media.img-fallback::before{ width: 56px; height: 56px; }
+
+  .modal-body{
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-category{
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--moss-dark);
+    margin-bottom: var(--space-2);
+  }
+  .modal-body h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+  }
+  .modal-price{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: var(--space-3);
+  }
+  .modal-price span{ color: var(--grey); font-weight: 400; font-size: 0.84rem; }
+  .modal-desc{ color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 var(--space-3); }
+
+  .modal-meta-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2) var(--space-3);
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: var(--space-3);
+  }
+  .modal-meta-item{ display: flex; flex-direction: column; gap: 2px; }
+  .modal-meta-item strong{ font-size: 0.78rem; color: var(--grey); font-weight: 500; }
+  .modal-meta-item span{ font-size: 0.92rem; color: var(--ink); }
+
+  .modal-care{
+    background: rgba(96,114,90,0.06);
+    border-radius: 10px;
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-4);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .modal-care svg{ width: 18px; height: 18px; stroke: var(--moss-dark); flex-shrink: 0; margin-top: 1px; }
+
+  .modal-actions{ margin-top: auto; display: flex; gap: var(--space-2); }
+
+  @media (max-width: 700px){
+    .modal{ grid-template-columns: 1fr; max-height: 92vh; }
+    .modal-media{ min-height: 220px; }
+  }
+
+  /* ============ WARENKORB PANEL ============ */
+  .cart-overlay{
+    position: fixed; inset: 0;
+    background: rgba(36,30,28,0.45);
+    z-index: 310;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .cart-overlay.open{ opacity: 1; pointer-events: auto; }
+
+  .cart-panel{
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(420px, 100%);
+    background: var(--bg-paper);
+    z-index: 320;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    box-shadow: -16px 0 40px rgba(36,30,28,0.12);
+  }
+  .cart-panel.open{ transform: translateX(0); }
+
+  .cart-panel-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .cart-panel-head h2{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  .cart-panel-close{
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-panel-close svg{ width: 15px; height: 15px; stroke: var(--ink); }
+
+  .cart-items{
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .cart-empty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-3);
+    color: var(--grey);
+  }
+  .cart-empty svg{ width: 36px; height: 36px; stroke: var(--line); }
+
+  .cart-item{
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: var(--space-2);
+    align-items: center;
+  }
+  .cart-item-media{
+    width: 64px; height: 64px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--moss);
+    flex-shrink: 0;
+  }
+  .cart-item-media img{ width: 100%; height: 100%; object-fit: cover; }
+  .cart-item-media.icon-tile{ display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%); }
+  .cart-item-media.icon-tile.alt{ background: linear-gradient(160deg, var(--terracotta) 0%, #b98969 100%); }
+  .cart-item-media.icon-tile svg{ width: 26px; height: 26px; stroke: #F9F9F9; }
+
+  .cart-item-info h4{ font-size: 0.92rem; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .cart-item-info span{ font-size: 0.82rem; color: var(--grey); }
+
+  .cart-item-qty{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .qty-btn{
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .qty-btn:hover{ border-color: var(--moss); color: var(--moss-dark); }
+  .qty-value{ font-size: 0.86rem; min-width: 16px; text-align: center; }
+
+  .cart-item-remove{
+    background: none; border: none;
+    color: var(--grey);
+    font-size: 0.78rem;
+    text-decoration: underline;
+    align-self: start;
+    padding: 0;
+  }
+  .cart-item-remove:hover{ color: var(--terracotta); }
+
+  .cart-panel-foot{
+    border-top: 1px solid var(--line);
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .cart-subtotal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+  }
+  .cart-subtotal strong{ font-size: 1.15rem; font-family: var(--font-display); font-weight: 500; }
+  .cart-note{ font-size: 0.78rem; color: var(--grey); margin: 0; }
+
+  /* ============ MODAL: Bestellanfrage ============ */
+  .order-form-grid{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .form-field{ display: flex; flex-direction: column; gap: 6px; }
+  .form-field label{ font-size: 0.84rem; font-weight: 500; color: var(--ink-soft); }
+  .form-field input, .form-field select, .form-field textarea{
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink);
+    transition: border-color 0.2s ease;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    border-color: var(--moss);
+    outline: none;
+  }
+  .form-field textarea{ resize: vertical; min-height: 90px; font-family: inherit; }
+  .order-summary-box{
+    background: rgba(96,114,90,0.06);
+    border-radius: 10px;
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    max-height: 140px;
+    overflow-y: auto;
+  }
+  .order-summary-box div{ display: flex; justify-content: space-between; padding: 3px 0; }
+  .form-success{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-4) 0;
+  }
+  .form-success.show{ display: flex; }
+  .form-success svg{ width: 44px; height: 44px; stroke: var(--moss); }
+  .form-success h3{ font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; margin: 0; }
+  .form-success p{ color: var(--ink-soft); font-size: 0.92rem; margin: 0; max-width: 38ch; }
+
+  @media (max-width: 480px){
+    .cart-panel{ width: 100%; }
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background: var(--ink); color: var(--bg); padding: var(--space-5) 0 var(--space-3); }
+  .footer-top{ display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-4); padding-bottom: var(--space-4); }
+  .footer-brand .logo{ color: var(--bg); }
+  .footer-brand .logo-mark path{ stroke: var(--terracotta); }
+  .footer-claim{ font-size: 0.88rem; color: rgba(249,249,249,0.55); margin: var(--space-2) 0 var(--space-3); max-width: 30ch; }
+  .footer-social{ display: flex; gap: var(--space-2); }
+  .footer-social a{
+    width: 34px; height: 34px; border: 1px solid rgba(249,249,249,0.18); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .footer-social a:hover{ border-color: var(--terracotta); background: rgba(209,166,138,0.08); }
+  .footer-social svg{ width: 15px; height: 15px; stroke: var(--bg); }
+  .footer-col h4{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(249,249,249,0.45); margin: 0 0 var(--space-2); font-weight: 600; }
+  .footer-col ul{ display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a{ font-size: 0.92rem; color: rgba(249,249,249,0.78); transition: color 0.2s ease; }
+  .footer-col a:hover{ color: var(--terracotta); }
+  .footer-bottom{
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: var(--space-3); font-size: 0.8rem; color: rgba(249,249,249,0.45);
+    flex-wrap: wrap; gap: var(--space-2);
+  }
+  .footer-bottom a{ color: rgba(249,249,249,0.6); }
+  .footer-bottom a:hover{ color: var(--terracotta); }
+
+  @media (max-width: 760px){
+    .main-nav ul{ display: none; }
+    .burger{ display: flex; }
+    .container{ padding: 0 var(--space-3); }
+    .footer-top{ grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); }
+    .footer-brand{ grid-column: 1 / -1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  .visually-hidden{
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Shinrin Bonsai, Startseite">
+      <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+      Shinrin Bonsai
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="geschichte.html">Geschichte</a></li>
+        <li><a href="produkte.html" class="active">Produkte</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-button" id="cart-toggle" aria-label="Warenkorb öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="17" cy="21" r="1"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation">
+  <div class="mobile-nav-top">
+    <a href="index.html" class="logo">Shinrin Bonsai</a>
+    <button class="mobile-nav-close" aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="index.html">Start</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+    <li><a href="produkte.html" class="active">Produkte</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="section" style="padding-bottom: 0;">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Das Angebot</span>
+        <h1>Bäume, Schalen und Werkzeug</h1>
+        <p>Eine kleine, sorgfältig zusammengestellte Auswahl. Auf ein Produkt klicken zeigt Details, Pflegehinweise und Maße.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: var(--space-3);">
+    <div class="container">
+
+      <div class="filter-bar" role="group" aria-label="Nach Kategorie filtern" id="filter-bar">
+        <button class="filter-pill" data-filter="alle" aria-pressed="true">Alle</button>
+        <button class="filter-pill" data-filter="baum" aria-pressed="false">Bonsai-Bäume</button>
+        <button class="filter-pill" data-filter="schale" aria-pressed="false">Schalen</button>
+        <button class="filter-pill" data-filter="werkzeug" aria-pressed="false">Werkzeug & Substrat</button>
+      </div>
+
+      <p class="results-meta" id="results-meta">6 Produkte</p>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Produktkarten werden per JS aus PRODUCTS gerendert -->
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img class="logo-mark" src="assets/images/logo-icon.png" alt="Shinrin Bonsai Logo">
+          Shinrin Bonsai
+        </a>
+        <p class="footer-claim">Geduld, die wächst. Bonsai mit Herz gezogen.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.5-1 4-1 5.5a1.5 1.5 0 0 0 2.5 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="geschichte.html">Geschichte</a></li>
+          <li><a href="produkte.html">Produkte</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="index.html#vertrauen">Pflegehinweise</a></li>
+          <li><a href="#">Versand</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Shinrin Bonsai. Alle Rechte vorbehalten.</span>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODAL: PRODUKTDETAIL ============ -->
+<div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Detailansicht schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="modal-media" id="modal-media"></div>
+    <div class="modal-body">
+      <span class="modal-category" id="modal-category"></span>
+      <h2 id="modal-title"></h2>
+      <p class="modal-price" id="modal-price"></p>
+      <p class="modal-desc" id="modal-desc"></p>
+
+      <div class="modal-meta-grid" id="modal-meta-grid"></div>
+
+      <div class="modal-care">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <span id="modal-care-text"></span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-primary btn-full" id="modal-add-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          In den Warenkorb
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WARENKORB OVERLAY + PANEL ============ -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-panel" id="cart-panel" aria-label="Warenkorb" aria-hidden="true">
+  <div class="cart-panel-head">
+    <h2>Warenkorb</h2>
+    <button class="cart-panel-close" id="cart-close" aria-label="Warenkorb schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <!-- per JS befüllt -->
+  </div>
+
+  <div class="cart-panel-foot" id="cart-panel-foot">
+    <div class="cart-subtotal">
+      <span>Zwischensumme</span>
+      <strong id="cart-subtotal-value">0 €</strong>
+    </div>
+    <p class="cart-note">Keine Zahlung im Shop — der Warenkorb wird als Bestellanfrage per E-Mail übermittelt.</p>
+    <button class="btn btn-primary btn-full" id="cart-checkout-btn" disabled>
+      Bestellanfrage senden
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- ============ MODAL: BESTELLANFRAGE ============ -->
+<div class="modal-overlay" id="order-modal-overlay" aria-hidden="true">
+  <div class="modal" style="grid-template-columns: 1fr; max-width: 540px;" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+    <button class="modal-close" id="order-modal-close" aria-label="Formular schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="modal-body">
+      <span class="modal-category">Bestellanfrage</span>
+      <h2 id="order-modal-title">Anfrage abschicken</h2>
+      <p class="modal-desc">Eine kurze Nachricht genügt — der Warenkorb-Inhalt wird automatisch mitgeschickt. Antworten kommen persönlich, meist innerhalb weniger Tage.</p>
+
+      <form class="order-form-grid" id="order-form">
+        <div class="form-field">
+          <label for="order-name">Name</label>
+          <input type="text" id="order-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="order-email">E-Mail</label>
+          <input type="email" id="order-email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="order-message">Nachricht (optional)</label>
+          <textarea id="order-message" name="message" placeholder="z. B. Wunsch-Lieferzeitraum, Fragen zur Pflege …"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label>Bestellübersicht</label>
+          <div class="order-summary-box" id="order-summary-box"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top: 8px;">
+          Anfrage per E-Mail senden
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        <h3>E-Mail-Programm wird geöffnet</h3>
+        <p>Die Anfrage ist vorbereitet — bitte im geöffneten E-Mail-Programm absenden, um sie zu übermitteln.</p>
+        <button class="btn btn-ghost" id="form-success-close">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ============ Produktdaten ============ */
+  const PRODUCTS = [
+    {
+      id: "p1",
+      category: "baum",
+      categoryLabel: "Bonsai-Baum",
+      name: "Japanische Schwarzkiefer",
+      price: 129,
+      priceNote: "inkl. Schale",
+      desc: "Kräftiger, charakterstarker Wuchs — ein klassischer Einstiegsbaum für alle, die Geduld mitbringen.",
+      img: "assets/images/produkte/schwarzkiefer.jpg",
+      alt: "Japanische Schwarzkiefer Bonsai in flacher Keramikschale",
+      stock: "Vorrätig",
+      meta: { Alter: "ca. 9 Jahre", Höhe: "32 cm", Standort: "Sonnig, im Freien" },
+      care: "Regelmäßig gießen, sobald die Erdoberfläche antrocknet. Rückschnitt im Frühjahr und Herbst."
+    },
+    {
+      id: "p2",
+      category: "baum",
+      categoryLabel: "Bonsai-Baum",
+      name: "Chinesisches Ulmenbäumchen",
+      price: 79,
+      priceNote: "inkl. Schale",
+      desc: "Feine Blattstruktur, sehr pflegeleicht — eignet sich auch gut für die Wohnung.",
+      img: "assets/images/produkte/ulme.jpg",
+      alt: "Kleinblättriger Bonsai, schlicht und minimalistisch fotografiert",
+      stock: "Vorrätig",
+      meta: { Alter: "ca. 5 Jahre", Höhe: "24 cm", Standort: "Hell, drinnen oder draußen" },
+      care: "Mäßig, aber regelmäßig gießen. Verträgt leichten Rückschnitt das ganze Jahr über."
+    },
+    {
+      id: "p3",
+      category: "baum",
+      categoryLabel: "Bonsai-Baum",
+      name: "Bonsai am Fenster, Ulme",
+      price: 95,
+      priceNote: "inkl. Schale",
+      desc: "Ruhiger, ausgewogener Wuchs — fotografiert im natürlichen Licht der Werkstatt.",
+      img: "assets/images/produkte/fenster-ulme.jpg",
+      alt: "Bonsai-Baum in ruhigem Licht vor einem Fenster",
+      stock: "Nur 2 verfügbar",
+      meta: { Alter: "ca. 7 Jahre", Höhe: "28 cm", Standort: "Hell, indirekte Sonne" },
+      care: "Gleichmäßig feucht halten, nicht stauen lassen. Düngen während der Wachstumsphase."
+    },
+    {
+      id: "p4",
+      category: "schale",
+      categoryLabel: "Schale",
+      name: "Handgetöpferte Schale, Erdton",
+      price: 38,
+      priceNote: "pro Stück",
+      desc: "Unglasierte Keramik, in kleiner Werkstatt gefertigt — jedes Stück ein Unikat.",
+      icon: "bowl",
+      iconVariant: "",
+      alt: "Handgetöpferte Bonsai-Schale in Erdton",
+      stock: "Vorrätig",
+      meta: { Material: "Unglasierte Keramik", Größe: "22 × 16 × 5 cm", Drainage: "1 Bodenloch" },
+      care: "Spülmaschinenfest nicht empfohlen. Von Hand reinigen, vor Frost schützen."
+    },
+    {
+      id: "p5",
+      category: "schale",
+      categoryLabel: "Schale",
+      name: "Flache Schale, Moosgrün glasiert",
+      price: 44,
+      priceNote: "pro Stück",
+      desc: "Dezente Glasur in Moosgrün, passend zu kräftigeren Baumformen mit breiter Krone.",
+      icon: "bowl",
+      iconVariant: "alt",
+      alt: "Flache, moosgrün glasierte Bonsai-Schale",
+      stock: "Vorrätig",
+      meta: { Material: "Glasierte Keramik", Größe: "26 × 19 × 4 cm", Drainage: "2 Bodenlöcher" },
+      care: "Leicht zu reinigen dank Glasur. Frostfrei lagern, wenn nicht bepflanzt."
+    },
+    {
+      id: "p6",
+      category: "werkzeug",
+      categoryLabel: "Werkzeug",
+      name: "Schneide-Set, 3-teilig",
+      price: 54,
+      priceNote: "im Set",
+      desc: "Rostfreier Stahl, präzise für Triebe, Wurzeln und feine Verzweigungen.",
+      icon: "scissors",
+      iconVariant: "alt",
+      alt: "Dreiteiliges Bonsai-Schneide-Set aus rostfreiem Stahl",
+      stock: "Vorrätig",
+      meta: { Material: "Rostfreier Stahl", Inhalt: "Schere, Konkavzange, Pinzette", Pflege: "Nach Gebrauch trocknen" },
+      care: "Nach jedem Schnitt kurz abwischen, gelegentlich ölen, um die Schärfe zu erhalten."
+    }
+  ];
+
+  const ICONS = {
+    bowl: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 20h32l-3 14a4 4 0 0 1-4 3.2H15a4 4 0 0 1-4-3.2L8 20Z"/><ellipse cx="24" cy="20" rx="16" ry="3.5"/><path d="M18 20v-2a6 6 0 0 1 12 0v2"/></svg>`,
+    scissors: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14L34 34"/><path d="M10 10l4 4-3 3-4-4z"/><path d="M38 38l-4-4 3-3 4 4z"/><circle cx="24" cy="24" r="2"/></svg>`
+  };
+
+  const CATEGORY_LABELS = { alle: "Produkte", baum: "Bonsai-Bäume", schale: "Schalen", werkzeug: "Werkzeug & Substrat" };
+
+  /* ============ State (in-memory, kein localStorage) ============ */
+  let activeFilter = "alle";
+  let cart = {}; // { productId: quantity }
+
+  /* ============ Helpers ============ */
+  function fmtPrice(n){ return n.toLocaleString('de-DE') + " €"; }
+
+  function mediaMarkup(p, sizeClass){
+    if (p.img){
+      return `<img src="${p.img}" alt="${p.alt}" loading="lazy" referrerpolicy="no-referrer"
+        onerror="this.closest('${sizeClass}').classList.add('img-fallback'); this.remove();">`;
+    }
+    return ICONS[p.icon] || "";
+  }
+
+  function mediaClass(p, base){
+    if (p.img) return base;
+    return base + " icon-tile" + (p.iconVariant ? " " + p.iconVariant : "");
+  }
+
+  /* ============ Produktraster rendern ============ */
+  const grid = document.getElementById('product-grid');
+  const resultsMeta = document.getElementById('results-meta');
+
+  function renderGrid(){
+    const filtered = activeFilter === "alle" ? PRODUCTS : PRODUCTS.filter(p => p.category === activeFilter);
+
+    if (filtered.length === 0){
+      grid.innerHTML = `<div class="empty-state">
+        <strong>Keine Produkte in dieser Kategorie</strong>
+        <p>Bitte eine andere Kategorie auswählen.</p>
+      </div>`;
+      resultsMeta.textContent = "0 Produkte";
+      return;
+    }
+
+    resultsMeta.textContent = `${filtered.length} Produkt${filtered.length === 1 ? '' : 'e'}`;
+
+    grid.innerHTML = filtered.map(p => `
+      <article class="product-card" data-id="${p.id}">
+        <button class="product-card-trigger" data-open-modal="${p.id}" aria-label="${p.name} – Details ansehen">
+          <div class="${mediaClass(p, 'product-media')}">
+            <span class="product-category">${p.categoryLabel}</span>
+            ${p.stock && p.stock.startsWith('Nur') ? `<span class="product-stock">${p.stock}</span>` : ''}
+            ${mediaMarkup(p, '.product-media')}
+          </div>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+          </div>
+        </button>
+        <div class="product-info" style="padding-top: 0;">
+          <div class="product-info-footer">
+            <span class="product-price">${fmtPrice(p.price)} <span>${p.priceNote}</span></span>
+            <button class="add-to-cart" data-add="${p.id}" aria-label="${p.name} in den Warenkorb legen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  /* ============ Filter-Logik ============ */
+  const filterBar = document.getElementById('filter-bar');
+  filterBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-pill');
+    if (!btn) return;
+    activeFilter = btn.dataset.filter;
+    filterBar.querySelectorAll('.filter-pill').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    renderGrid();
+  });
+
+  /* ============ Warenkorb-Logik ============ */
+  const cartCountEl = document.getElementById('cart-count');
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartSubtotalEl = document.getElementById('cart-subtotal-value');
+  const cartCheckoutBtn = document.getElementById('cart-checkout-btn');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const cartPanel = document.getElementById('cart-panel');
+
+  function addToCart(id, qty = 1){
+    cart[id] = (cart[id] || 0) + qty;
+    updateCartUI();
+    bumpCartCount();
+  }
+  function setQty(id, qty){
+    if (qty <= 0){ delete cart[id]; }
+    else { cart[id] = qty; }
+    updateCartUI();
+  }
+  function removeFromCart(id){
+    delete cart[id];
+    updateCartUI();
+  }
+  function cartTotalCount(){
+    return Object.values(cart).reduce((sum, q) => sum + q, 0);
+  }
+  function cartSubtotal(){
+    return Object.entries(cart).reduce((sum, [id, q]) => {
+      const p = PRODUCTS.find(pr => pr.id === id);
+      return sum + (p ? p.price * q : 0);
+    }, 0);
+  }
+  function bumpCartCount(){
+    cartCountEl.classList.add('bump');
+    setTimeout(() => cartCountEl.classList.remove('bump'), 220);
+  }
+
+  function updateCartUI(){
+    const count = cartTotalCount();
+    cartCountEl.textContent = count;
+    cartCheckoutBtn.disabled = count === 0;
+    cartSubtotalEl.textContent = fmtPrice(cartSubtotal());
+
+    const entries = Object.entries(cart);
+    if (entries.length === 0){
+      cartItemsEl.innerHTML = `<div class="cart-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="17" cy="21" r="1"/></svg>
+        <span>Der Warenkorb ist noch leer.</span>
+      </div>`;
+      return;
+    }
+
+    cartItemsEl.innerHTML = entries.map(([id, qty]) => {
+      const p = PRODUCTS.find(pr => pr.id === id);
+      if (!p) return '';
+      return `
+        <div class="cart-item" data-id="${id}">
+          <div class="${mediaClass(p, 'cart-item-media')}">
+            ${mediaMarkup(p, '.cart-item-media')}
+          </div>
+          <div class="cart-item-info">
+            <h4>${p.name}</h4>
+            <span>${fmtPrice(p.price)}</span>
+            <div class="cart-item-qty">
+              <button class="qty-btn" data-qty-minus="${id}" aria-label="Menge verringern">−</button>
+              <span class="qty-value">${qty}</span>
+              <button class="qty-btn" data-qty-plus="${id}" aria-label="Menge erhöhen">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" data-remove="${id}">Entfernen</button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  cartItemsEl.addEventListener('click', (e) => {
+    const minus = e.target.closest('[data-qty-minus]');
+    const plus = e.target.closest('[data-qty-plus]');
+    const remove = e.target.closest('[data-remove]');
+    if (minus){ const id = minus.dataset.qtyMinus; setQty(id, (cart[id] || 0) - 1); }
+    if (plus){ const id = plus.dataset.qtyPlus; setQty(id, (cart[id] || 0) + 1); }
+    if (remove){ removeFromCart(remove.dataset.remove); }
+  });
+
+  function openCart(){
+    cartOverlay.classList.add('open');
+    cartPanel.classList.add('open');
+    cartPanel.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart(){
+    cartOverlay.classList.remove('open');
+    cartPanel.classList.remove('open');
+    cartPanel.setAttribute('aria-hidden', 'true');
+    if (!document.getElementById('modal-overlay').classList.contains('open') &&
+        !document.getElementById('order-modal-overlay').classList.contains('open')){
+      document.body.style.overflow = '';
+    }
+  }
+  document.getElementById('cart-toggle').addEventListener('click', openCart);
+  document.getElementById('cart-close').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  /* ============ Add-to-cart Klicks im Raster ============ */
+  grid.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('[data-add]');
+    const openBtn = e.target.closest('[data-open-modal]');
+    if (addBtn){
+      e.stopPropagation();
+      addToCart(addBtn.dataset.add);
+      addBtn.classList.add('added');
+      setTimeout(() => addBtn.classList.remove('added'), 600);
+      return;
+    }
+    if (openBtn){
+      openProductModal(openBtn.dataset.openModal);
+    }
+  });
+
+  /* ============ Produktdetail-Modal ============ */
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalMedia = document.getElementById('modal-media');
+  const modalCategory = document.getElementById('modal-category');
+  const modalTitle = document.getElementById('modal-title');
+  const modalPrice = document.getElementById('modal-price');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalMetaGrid = document.getElementById('modal-meta-grid');
+  const modalCareText = document.getElementById('modal-care-text');
+  const modalAddBtn = document.getElementById('modal-add-btn');
+  let currentModalProductId = null;
+
+  function openProductModal(id){
+    const p = PRODUCTS.find(pr => pr.id === id);
+    if (!p) return;
+    currentModalProductId = id;
+
+    modalMedia.className = mediaClass(p, 'modal-media');
+    modalMedia.innerHTML = mediaMarkup(p, '.modal-media');
+    modalCategory.textContent = p.categoryLabel;
+    modalTitle.textContent = p.name;
+    modalPrice.innerHTML = `${fmtPrice(p.price)} <span>${p.priceNote}</span>`;
+    modalDesc.textContent = p.desc;
+    modalMetaGrid.innerHTML = Object.entries(p.meta).map(([k, v]) =>
+      `<div class="modal-meta-item"><strong>${k}</strong><span>${v}</span></div>`
+    ).join('');
+    modalCareText.textContent = p.care;
+
+    modalOverlay.classList.add('open');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProductModal(){
+    modalOverlay.classList.remove('open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    currentModalProductId = null;
+    if (!cartPanel.classList.contains('open')){ document.body.style.overflow = ''; }
+  }
+  document.getElementById('modal-close').addEventListener('click', closeProductModal);
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeProductModal(); });
+  modalAddBtn.addEventListener('click', () => {
+    if (currentModalProductId){
+      addToCart(currentModalProductId);
+      modalAddBtn.textContent = "Hinzugefügt ✓";
+      setTimeout(() => {
+        modalAddBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> In den Warenkorb`;
+      }, 1200);
+    }
+  });
+
+  /* ============ Bestellanfrage-Modal ============ */
+  const orderModalOverlay = document.getElementById('order-modal-overlay');
+  const orderSummaryBox = document.getElementById('order-summary-box');
+  const orderForm = document.getElementById('order-form');
+  const formSuccess = document.getElementById('form-success');
+
+  function openOrderModal(){
+    const entries = Object.entries(cart);
+    orderSummaryBox.innerHTML = entries.map(([id, qty]) => {
+      const p = PRODUCTS.find(pr => pr.id === id);
+      if (!p) return '';
+      return `<div><span>${qty} × ${p.name}</span><span>${fmtPrice(p.price * qty)}</span></div>`;
+    }).join('') + `<div style="border-top:1px solid var(--line); margin-top:6px; padding-top:6px; font-weight:600;"><span>Zwischensumme</span><span>${fmtPrice(cartSubtotal())}</span></div>`;
+
+    orderForm.style.display = 'flex';
+    formSuccess.classList.remove('show');
+    orderModalOverlay.classList.add('open');
+    orderModalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOrderModal(){
+    orderModalOverlay.classList.remove('open');
+    orderModalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('order-modal-close').addEventListener('click', closeOrderModal);
+  orderModalOverlay.addEventListener('click', (e) => { if (e.target === orderModalOverlay) closeOrderModal(); });
+  document.getElementById('form-success-close').addEventListener('click', closeOrderModal);
+
+  cartCheckoutBtn.addEventListener('click', () => {
+    if (cartTotalCount() === 0) return;
+    closeCart();
+    openOrderModal();
+  });
+
+  orderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('order-name').value.trim();
+    const email = document.getElementById('order-email').value.trim();
+    const message = document.getElementById('order-message').value.trim();
+
+    const lines = Object.entries(cart).map(([id, qty]) => {
+      const p = PRODUCTS.find(pr => pr.id === id);
+      return p ? `- ${qty} × ${p.name} (${fmtPrice(p.price)} / Stück) = ${fmtPrice(p.price * qty)}` : '';
+    }).filter(Boolean);
+
+    const body = [
+      `Name: ${name}`,
+      `E-Mail: ${email}`,
+      '',
+      'Bestellanfrage:',
+      ...lines,
+      '',
+      `Zwischensumme: ${fmtPrice(cartSubtotal())}`,
+      '',
+      message ? `Nachricht:\n${message}` : ''
+    ].join('\n');
+
+    const subject = encodeURIComponent('Bestellanfrage über shinrin-bonsai.de');
+    const mailto = `mailto:kontakt@shinrin-bonsai.de?subject=${subject}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    orderForm.style.display = 'none';
+    formSuccess.classList.add('show');
+  });
+
+  /* ============ Mobile Nav ============ */
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileNavClose = document.querySelector('.mobile-nav-close');
+  function openNav(){
+    mobileNav.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    mobileNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openNav);
+  mobileNavClose.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  /* ============ Escape-Taste schließt offene Overlays ============ */
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (orderModalOverlay.classList.contains('open')) closeOrderModal();
+    else if (modalOverlay.classList.contains('open')) closeProductModal();
+    else if (cartPanel.classList.contains('open')) closeCart();
+  });
+
+  /* ============ Init ============ */
+  renderGrid();
+  updateCartUI();
+</script>
+
+</body>
+</html>
