@@ -937,8 +937,7 @@
       price: 38,
       priceNote: "pro Stück",
       desc: "Unglasierte Keramik, in kleiner Werkstatt gefertigt — jedes Stück ein Unikat.",
-      icon: "bowl",
-      iconVariant: "",
+      img: "assets/images/produkte/schale-erdton.jpg",
       alt: "Handgetöpferte Bonsai-Schale in Erdton",
       stock: "Vorrätig",
       meta: { Material: "Unglasierte Keramik", Größe: "22 × 16 × 5 cm", Drainage: "1 Bodenloch" },
@@ -952,8 +951,7 @@
       price: 44,
       priceNote: "pro Stück",
       desc: "Dezente Glasur in Moosgrün, passend zu kräftigeren Baumformen mit breiter Krone.",
-      icon: "bowl",
-      iconVariant: "alt",
+      img: "assets/images/produkte/schale-moosgruen.jpg",
       alt: "Flache, moosgrün glasierte Bonsai-Schale",
       stock: "Vorrätig",
       meta: { Material: "Glasierte Keramik", Größe: "26 × 19 × 4 cm", Drainage: "2 Bodenlöcher" },
@@ -967,8 +965,7 @@
       price: 54,
       priceNote: "im Set",
       desc: "Rostfreier Stahl, präzise für Triebe, Wurzeln und feine Verzweigungen.",
-      icon: "scissors",
-      iconVariant: "alt",
+      img: "assets/images/produkte/schneideset.jpg",
       alt: "Dreiteiliges Bonsai-Schneide-Set aus rostfreiem Stahl",
       stock: "Vorrätig",
       meta: { Material: "Rostfreier Stahl", Inhalt: "Schere, Konkavzange, Pinzette", Pflege: "Nach Gebrauch trocknen" },
@@ -1157,6 +1154,7 @@
   document.getElementById('cart-toggle').addEventListener('click', openCart);
   document.getElementById('cart-close').addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
+  if (window.location.hash === '#cart') openCart();
 
   /* ============ Add-to-cart Klicks im Raster ============ */
   grid.addEventListener('click', (e) => {

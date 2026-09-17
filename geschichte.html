@@ -283,6 +283,7 @@
     overflow: hidden;
     background: linear-gradient(160deg, var(--moss) 0%, var(--moss-dark) 100%);
   }
+  .portrait-frame img{ width: 100%; height: 100%; object-fit: cover; }
   .portrait-frame::before{
     width: 56px; height: 56px;
   }
@@ -580,7 +581,7 @@
     </nav>
 
     <div class="header-actions">
-      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel">
+      <button class="cart-button" aria-label="Warenkorb öffnen, 0 Artikel" onclick="window.location.href='produkte.html#cart'">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L21 8H6"/>
           <circle cx="10" cy="21" r="1"/>
@@ -624,8 +625,8 @@
         </p>
       </div>
 
-      <div class="portrait-frame img-fallback" id="portrait-frame">
-        <span class="portrait-frame-note">Foto folgt — authentisches Porträt bei der Arbeit am Bonsai</span>
+      <div class="portrait-frame" id="portrait-frame">
+        <img src="assets/images/portrait.jpg" alt="Porträt bei der Arbeit am Bonsai">
       </div>
     </div>
   </section>
